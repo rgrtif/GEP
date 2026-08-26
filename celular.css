@@ -1,0 +1,216 @@
+/* ══════════════════════════════════════════════════════════════════════
+   celular.css — a apresentação em telefone.
+
+   O palco de 1920×1080 não vem junto. Ele é a razão de a versão de tela
+   grande sair idêntica ao PowerPoint, e é exatamente o que num telefone
+   reduz todo texto a 3px. Aqui não há palco: há uma coluna que rola, com
+   tamanhos em px de verdade.
+
+   Três réguas, e há verificador para as três:
+     · nenhum texto abaixo de 14px
+     · nenhum alvo de toque abaixo de 44px
+     · nada mais largo que a tela
+
+   As telas viram CAPÍTULOS que se percorrem rolando, e não slides que se
+   avançam. É como se lê num telefone; brigar com isso só produz uma
+   apresentação que ninguém termina.
+   ══════════════════════════════════════════════════════════════════════ */
+
+#celular{
+  --papel:#F3F7FA;
+  --carta:#FFFFFF;
+  --tinta:#0F2230;
+  --tinta2:#4A6577;
+  --tinta3:#7B95A5;
+  --linha:#DCE7ED;
+  --profundo:#18577E;
+  --azul:#0082AD;
+  --ciano:#00B3EC;
+  --escuro:#0A1A24;
+
+  position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;overscroll-behavior-y:none;
+  background:var(--papel);color:var(--tinta);
+  font-family:Poppins,"Work Sans",system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.55;
+  scroll-behavior:smooth;
+}
+#celular *{box-sizing:border-box}
+#celular img{max-width:100%;display:block}
+
+/* ══════ barra de topo ══════
+   Sete capítulos num rodapé fixo não cabem em 390px — dariam 3px de
+   texto. Vira uma barra com o capítulo atual e um botão de menu. */
+.cTopo{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;
+  padding:10px 16px;min-height:56px;
+  background:rgba(243,247,250,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--linha)}
+.cTopo.escuro{background:rgba(10,26,36,.86);border-bottom-color:rgba(255,255,255,.12)}
+.cTopo .marca{height:26px;width:auto;flex:none}
+.cTopo .onde{flex:1;min-width:0;font-size:14px;font-weight:600;color:var(--tinta2);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cTopo.escuro .onde{color:rgba(255,255,255,.72)}
+.cMenuBt{flex:none;width:44px;height:44px;border:0;border-radius:12px;background:none;
+  display:grid;place-items:center;cursor:pointer;color:var(--profundo)}
+.cTopo.escuro .cMenuBt{color:#fff}
+.cMenuBt span{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;
+  box-shadow:0 -6px 0 currentColor,0 6px 0 currentColor}
+
+/* ══════ menu ══════ */
+.cMenu{position:fixed;inset:0;z-index:60;display:none}
+.cMenu.aberto{display:block}
+.cMenu .veu{position:absolute;inset:0;background:rgba(10,26,36,.55)}
+.cMenu nav{position:absolute;left:0;right:0;bottom:0;background:var(--carta);
+  border-radius:22px 22px 0 0;padding:10px 12px calc(18px + env(safe-area-inset-bottom));
+  max-height:82vh;overflow-y:auto}
+.cMenu .puxador{width:40px;height:4px;border-radius:99px;background:var(--linha);
+  margin:6px auto 12px}
+.cMenu a{display:flex;align-items:center;gap:14px;min-height:52px;padding:8px 14px;
+  border-radius:12px;text-decoration:none;color:var(--tinta);font-weight:600;font-size:16px}
+.cMenu a em{font-style:normal;font-family:ui-monospace,monospace;font-size:14px;
+  color:var(--tinta3);font-weight:500}
+.cMenu a.on{background:rgba(0,179,236,.12);color:var(--profundo)}
+.cMenu a.on em{color:var(--ciano)}
+
+/* ══════ capítulo ══════ */
+.cap{padding:34px 20px 46px;scroll-margin-top:56px}
+.cap + .cap{border-top:1px solid var(--linha)}
+.cap.fundo{position:relative;color:#fff;border-top:0;
+  background-size:cover;background-position:center;isolation:isolate}
+.cap.fundo::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(10,26,36,.72),rgba(10,26,36,.9))}
+.cap.fundo .cRot{color:rgba(255,255,255,.62)}
+.cap.fundo p{color:rgba(255,255,255,.86)}
+
+.cRot{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--azul);margin-bottom:14px}
+.cRot i{width:22px;height:2px;background:currentColor;flex:none}
+.cap h2{margin:0;font-size:clamp(29px,8.4vw,38px);line-height:1.1;font-weight:700;
+  letter-spacing:-.02em;text-wrap:balance}
+.cap h2 .ac{color:var(--ciano)}
+.cap .lead{margin:16px 0 0;font-size:16px;color:var(--tinta2);max-width:38em}
+.cap.fundo h2{color:#fff}
+
+/* ══════ métricas ══════ */
+.cNums{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:12px;margin-top:26px}
+.cNum{background:var(--carta);border:1px solid var(--linha);border-radius:14px;padding:14px 14px 12px}
+.cap.fundo .cNum{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16)}
+.cNum b{display:block;font-size:26px;font-weight:700;line-height:1;color:var(--profundo);
+  font-variant-numeric:tabular-nums}
+.cap.fundo .cNum b{color:var(--ciano)}
+.cNum small{display:block;margin-top:7px;font-size:14px;line-height:1.3;color:var(--tinta2)}
+.cap.fundo .cNum small{color:rgba(255,255,255,.78)}
+
+/* ══════ grade de áreas (tela 04) ══════ */
+.cGrade{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.cGrade .it{display:flex;align-items:center;gap:11px;min-height:60px;padding:11px 12px;
+  background:var(--carta);border:1px solid var(--linha);border-radius:13px}
+.cGrade .it img{width:30px;height:30px;flex:none}
+.cGrade .it b{font-size:14px;font-weight:600;line-height:1.24;color:var(--profundo)}
+
+/* ══════ presença (tela 03) ══════ */
+.cMapa{margin-top:22px;border-radius:16px;overflow:hidden;border:1px solid var(--linha);
+  background:var(--carta)}
+.cCidades{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.cCidades span{font-size:14px;font-weight:500;color:var(--profundo);
+  background:var(--carta);border:1px solid var(--linha);border-radius:99px;
+  padding:9px 14px;min-height:40px;display:inline-flex;align-items:center}
+
+/* ══════ categorias (tela 05) ══════
+   O galpão isométrico é recurso de tela larga: a leitura depende de ver as
+   ilhas lado a lado. Aqui cada categoria vira um cartão com a arte dela em
+   cima, e as quatro páginas do mapa viram quatro seções com os mesmos
+   nomes — o agrupamento editorial sobrevive, a metáfora espacial não. */
+.cSecao{margin-top:30px}
+.cSecao > h3{margin:0 0 12px;font-size:14px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--tinta3)}
+.cIlha{background:var(--carta);border:1px solid var(--linha);border-radius:18px;
+  overflow:hidden;margin-bottom:12px}
+.cIlha > button{display:block;width:100%;border:0;background:none;padding:0;cursor:pointer;
+  text-align:left;font:inherit;color:inherit}
+/* A miniatura é um recorte da cena, não mais um PNG com transparência:
+   preenche a caixa inteira em vez de flutuar centralizada sobre um
+   degradê. */
+.cIlha .arte{position:relative;background:#DCE8F0;aspect-ratio:16/9;overflow:hidden}
+.cIlha .arte img{width:100%;height:100%;object-fit:cover}
+.cIlha .cab{display:flex;align-items:center;gap:12px;padding:14px 16px;min-height:64px}
+.cIlha .cab img{width:34px;height:34px;flex:none}
+.cIlha .cab div{flex:1;min-width:0}
+.cIlha .cab b{display:block;font-size:16px;font-weight:700;line-height:1.22;color:var(--profundo)}
+.cIlha .cab small{display:block;margin-top:3px;font-size:14px;color:var(--tinta2);line-height:1.3}
+.cIlha .cab .cont{flex:none;min-width:34px;height:34px;border-radius:99px;
+  background:rgba(0,179,236,.16);color:var(--azul);font-size:14px;font-weight:700;
+  display:grid;place-items:center;padding:0 9px}
+.cIlha .cursos{display:none;padding:0 16px 8px;border-top:1px solid var(--linha)}
+.cIlha.aberta .cursos{display:block}
+
+/* ══════ linha de curso ══════ */
+.cCurso{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;
+  padding:12px 2px;border:0;border-bottom:1px solid var(--linha);background:none;
+  text-align:left;font:inherit;color:inherit;cursor:pointer}
+.cCurso:last-child{border-bottom:0}
+.cCurso .foto{width:52px;height:52px;border-radius:11px;object-fit:cover;flex:none}
+.cCurso div{flex:1;min-width:0}
+.cCurso b{display:block;font-size:15px;font-weight:600;line-height:1.28;color:var(--tinta)}
+.cCurso small{display:block;margin-top:3px;font-size:14px;color:var(--tinta3)}
+.cCurso .seta{flex:none;color:var(--tinta3);font-size:20px}
+
+/* ══════ ficha (tela 06) ══════ */
+.cFicha{position:fixed;inset:0;z-index:70;background:var(--papel);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;display:none}
+.cFicha.aberta{display:block}
+.cFichaTopo{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;
+  padding:10px 12px;min-height:56px;background:rgba(243,247,250,.94);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--linha)}
+.cVoltar{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px 0 10px;
+  border:0;border-radius:12px;background:none;font:inherit;font-weight:600;font-size:15px;
+  color:var(--profundo);cursor:pointer}
+.cFicha .capa{position:relative;aspect-ratio:16/10;background:var(--linha)}
+.cFicha .capa img{width:100%;height:100%;object-fit:cover}
+.cFicha .capa .veu{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,26,36,.1),rgba(10,26,36,.88))}
+.cFicha .capa .txt{position:absolute;left:20px;right:20px;bottom:16px;color:#fff}
+.cFicha .capa .txt em{font-style:normal;display:block;font-size:14px;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ciano);margin-bottom:6px}
+.cFicha .capa .txt b{display:block;font-size:24px;font-weight:700;line-height:1.16}
+.cFicha .corpo{padding:20px 20px 60px}
+.cCH{display:flex;align-items:baseline;gap:8px;background:var(--carta);
+  border:1px solid var(--linha);border-radius:14px;padding:14px 18px;margin-bottom:22px}
+.cCH b{font-size:30px;font-weight:700;color:var(--profundo);font-variant-numeric:tabular-nums;line-height:1}
+.cCH i{font-style:normal;font-size:16px;font-weight:700;color:var(--azul)}
+.cCH em{font-style:normal;margin-left:auto;font-size:14px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--tinta3);text-align:right}
+.cBloco{margin-bottom:22px}
+.cBloco h4{margin:0 0 7px;font-size:14px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--azul)}
+.cBloco p{margin:0;font-size:16px;color:var(--tinta2)}
+
+/* itinerário em sanfona: um curso chega a 31 unidades, e despejar isso
+   numa coluna faz a ficha virar um rolo sem forma */
+.cMod{background:var(--carta);border:1px solid var(--linha);border-radius:14px;margin-bottom:10px;
+  overflow:hidden}
+.cMod > button{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;
+  padding:14px 16px;border:0;background:none;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.cMod > button b{flex:1;font-size:15px;font-weight:700;color:var(--profundo);line-height:1.24}
+.cMod > button .h{font-size:16px;font-weight:700;color:var(--azul);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.cMod > button .mais{width:22px;text-align:center;color:var(--tinta3);font-size:19px;flex:none}
+.cMod ul{display:none;margin:0;padding:0 16px 14px;list-style:none}
+.cMod.aberto ul{display:block}
+.cMod.aberto > button .mais{transform:rotate(45deg)}
+.cMod li{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--linha);
+  font-size:15px;color:var(--tinta2);line-height:1.36}
+.cMod li span{margin-left:auto;font-size:14px;font-weight:600;color:var(--azul);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ══════ fecho ══════ */
+.cap.fecho{min-height:74vh;display:grid;place-items:center;text-align:center}
+.cap.fecho img{width:72%;max-width:300px}
+
+@media (prefers-reduced-motion:reduce){
+  #celular{scroll-behavior:auto}
+  .cMod > button .mais{transition:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .cMod > button .mais{transition:transform .2s ease}
+}
