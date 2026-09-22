@@ -60,7 +60,10 @@
      E o nome local tem de ser OUTRO: `const A = typeof A ...` referencia a
      própria variável antes de existir. */
   const rec = typeof A === 'function' ? A : (p => p);
-  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  /* String(s) sozinho escrevia "undefined" na tela quando o campo sumia dos
+     dados — foi o que o cliente viu no celular em 22/09, no lugar do nome
+     da página do mapa (que deixou de existir). Agora campo ausente é vazio. */
+  const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const cena = v => rec(`assets/cena-parada/${v}.jpg`);
 
   /* ── os capítulos, na ordem do sumário ── */
@@ -228,10 +231,8 @@
       <h2>A oferta, por <span class="ac">categoria.</span></h2>
       <p class="lead">São ${ILHAS.length} categorias e ${CURSOS.length} títulos técnicos.
         Toque numa categoria para ver os cursos dela.</p>
-      ${PAGINAS.map(p => `
-        <div class="cSecao">
-          <h3>${esc(p.nome)}</h3>
-          ${p.ilhas.map(id => {
+      <div class="cSecao">
+          ${PAGINAS.flatMap(p => p.ilhas).map(id => {
             const il = ILHAS.find(i => i.id === id);
             if (!il) return '';
             const cs = cursosDe(il);
@@ -255,7 +256,7 @@
               </div>
             </article>`;
           }).join('')}
-        </div>`).join('')}
+      </div>
     </section>`;
 
   /* ══════ 06 · todos os títulos ══════
