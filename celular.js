@@ -70,15 +70,13 @@
   const capa = () => `
     <section class="cap fundo" id="c0" style="background-image:url(${cena('solda-capa')})">
       <div class="cRot"><i></i>Cursos Técnicos</div>
-      <h2>PROPAG 2026.2</h2>
-      <p class="lead" style="font-size:19px;font-weight:600;color:#fff;margin-top:12px">
-        A indústria pede. <span class="ac" style="color:var(--ciano)">A gente forma.</span></p>
-      <p class="lead">Há mais de <b>84 anos</b> o Firjan SENAI forma os melhores
+      <h2>A indústria pede.<br><span class="ac" style="color:var(--ciano)">A gente forma.</span></h2>
+      <p class="lead" style="margin-top:14px">Há mais de <b>84 anos</b> o Firjan SENAI forma os melhores
         profissionais para a indústria — na opinião da própria indústria.</p>
-      <div class="cRot" style="margin:22px 0 10px"><i></i>Oferta</div>
-      <div class="cNums">
-        <div class="cNum"><b>27</b><small>Títulos técnicos</small></div>
-        <div class="cNum"><b>19</b><small>Áreas tecnológicas</small></div>
+      <div class="cNums" style="margin-top:22px">
+        <div class="cNum"><b>31</b><small>Títulos técnicos</small></div>
+        <div class="cNum"><b>+130 mil</b><small>Matrículas por ano</small></div>
+        <div class="cNum"><b>71,7%</b><small>Empregabilidade de egressos</small></div>
         <div class="cNum"><b>97,7%</b><small>Satisfação das empresas</small></div>
       </div>
     </section>`;
@@ -91,10 +89,12 @@
       <p class="lead">Segundo dados da CNI, 97,7% das empresas estão satisfeitas com
         os profissionais do Firjan SENAI. Quem faz um curso técnico ganha
         empregabilidade — e chega mais preparado ao Ensino Superior.</p>
+      <!-- os mesmos três números da tela 02 da versão grande: aqui ainda
+           estavam os de uma revisão antiga (77 anos, 90,1%) -->
       <div class="cNums">
-        <div class="cNum"><b>77</b><small>Anos de indústria</small></div>
-        <div class="cNum"><b>90,1%</b><small>Empregabilidade</small></div>
-        <div class="cNum"><b>97,7%</b><small>Satisfação</small></div>
+        <div class="cNum"><b>84</b><small>Anos de indústria</small></div>
+        <div class="cNum"><b>97,7%</b><small>Satisfação CNI</small></div>
+        <div class="cNum"><b>60</b><small>Unidades no estado</small></div>
       </div>
     </section>`;
 
@@ -125,18 +125,77 @@
       </div>
     </section>`;
 
+  /* ══════ os hubs: O que fazemos e Soluções ══════
+     Na tela grande as sub-telas se percorrem num painel; aqui viram
+     cartões em sequência, abertos, porque no telefone se rola. A peça do
+     infográfico entra inteira e os rótulos descem para uma lista embaixo
+     dela: rótulo posicionado sobre arte não sobrevive a 390px. Os vídeos
+     ficam no pôster, pela mesma razão dos fundos (dados móveis). */
+  const img = (p, alt = '') => `<img src="${rec(`assets/${p}`)}" alt="${esc(alt)}" loading="lazy">`;
+  /* vídeo continua vídeo também aqui: só carrega quando aparece na tela
+     (ver o observador dos vídeos, mais abaixo), e uma lista se reveza */
+  /* a onda da Firjan sobre cada foto e vídeo dos hubs, como no palco */
+  const selo = `<img class="cSelo" src="${rec('assets/brand/grafismo-onda.svg')}" alt="" aria-hidden="true">`;
+  const vid = (lista, poster) => {
+    const vs = [].concat(lista || []);
+    if (!vs.length) return poster ? img(poster) : '';
+    return `<video muted${vs.length > 1 ? '' : ' loop'} playsinline preload="none" data-src="${
+      vs.map(v => `assets/video/${v}.mp4`).join(' ')}"${poster ? ` poster="${rec(`assets/${poster}`)}"` : ''}></video>`;
+  };
+  const hubParte = p => {
+    const lead = p.lead ? `<p class="lead">${esc(p.lead)}</p>` : '';
+    const corpo = p.corpo ? `<p>${esc(p.corpo)}</p>` : '';
+    const link = p.url ? `<a class="cLink" href="${esc(p.url)}" target="_blank" rel="noopener">${
+      esc(p.rotuloUrl || 'Saiba mais')} ↗</a>` : '';
+    let miolo = '';
+    if (p.tipo === 'infografico') {
+      const rots = [...(p.etapas || []), p.entrada, p.centro, p.base].filter(Boolean);
+      miolo = `<div class="cPeca">${img(p.peca ? `pecas/${p.peca}.png` : p.fundo)}</div>
+        ${rots.length ? `<ol class="cEtapas">${rots.map(e => `<li><b>${esc(e.n)}</b>${
+          e.p ? `<em>${esc(e.p)}</em>` : ''}${e.d ? `<span>${esc(e.d)}</span>` : ''}${
+          e.itens ? `<span>${e.itens.map(esc).join(e.seq ? ' › ' : ' · ')}</span>` : ''}</li>`).join('')}</ol>` : ''}
+        ${[...(p.fases || []), ...(p.grupos || [])].map(f => `<div class="cLista"><h4>${esc(f.n)}</h4><ul>${
+          f.itens.map(t => `<li>${Array.isArray(t) ? `${esc(t[0])}<small>${esc(t[1])}</small>` : esc(t)}</li>`).join('')}</ul></div>`).join('')}
+        ${(p.notas || []).map(n => `<p class="cNota">${esc(n.t)}</p>`).join('')}`;
+    } else if (p.tipo === 'texto') {
+      /* toda mídia do slide, como no palco: o vídeo e as fotos, numa faixa
+         que se rola de lado */
+      const leg = p.legendas || [];
+      const midias = [...(p.video ? [vid(p.video, p.poster)] : []), ...(p.fotos || []).map(f => img(f))]
+        .map((m, i) => `<figure class="cMidia"><div class="cQuadro">${m}${selo}</div>${leg[i] ? `<figcaption>${esc(leg[i])}</figcaption>` : ''}</figure>`);
+      miolo = `${midias.length ? `<div class="cMidias">${midias.join('')}</div>` : ''}${p.numero
+        ? `<div class="cNum cNumHub"><b>${esc(p.numero)}</b><small>${esc(p.rotulo || '')}</small></div>` : ''}`;
+    } else if (p.tipo === 'slider') {
+      miolo = `<div class="cRecursos">${p.itens.map(x => `<div class="cRecurso"><div class="cQuadro">${vid(x.videos || x.video, x.poster)}${selo}</div>${
+        x.legendas ? `<p class="cLegenda">${x.legendas.map(esc).join(' · ')}</p>` : ''}
+        <b>${esc(x.n)}</b><p>${esc(x.d)}</p></div>`).join('')}</div>`;
+    } else if (p.tipo === 'galeria') {
+      miolo = `<div class="cCapas">${p.imagens.map(im => img(`${p.pasta}/${im.f}.jpg`, im.n)).join('')}</div>`;
+    } else if (p.tipo === 'link') {
+      miolo = (p.blocos || []).map(b => `<div class="cBloco"><h4>${esc(b.n)}</h4><p>${esc(b.d)}</p></div>`).join('');
+    }
+    return `<article class="cHub"><h3>${esc(p.titulo || p.nome)}</h3>${
+      p.tipo === 'texto' ? miolo + lead + corpo : lead + corpo + miolo}${link}</article>`;
+  };
+  const hubDe = id => {
+    const h = SECOES.find(s => s.id === id);
+    return h ? h.partes.map(p => p.tipo === 'grupo'
+      ? `<div class="cSecao"><h3>${esc(p.nome)}</h3>${p.partes.map(hubParte).join('')}</div>`
+      : `<div class="cSecao">${hubParte(p)}</div>`).join('') : '';
+  };
+
   /* ══════ 04 · o que fazemos ══════ */
   const fazemos = () => `
     <section class="cap" id="c3">
       <div class="cRot"><i></i>O que fazemos</div>
       <h2>32 áreas <span class="ac">tecnológicas.</span></h2>
-      <p class="lead">São <b>564 cursos</b> no catálogo, da iniciação à especialização —
+      <p class="lead">São <b>566 cursos</b> no catálogo, da iniciação à especialização —
         a formação acompanha a carreira inteira de quem trabalha na indústria.</p>
       <div class="cNums">
         <div class="cNum"><b>331</b><small>Cursos de Aperfeiçoamento</small></div>
         <div class="cNum"><b>137</b><small>Cursos de Qualificação</small></div>
         <div class="cNum"><b>56</b><small>Cursos de Aprendizagem</small></div>
-        <div class="cNum"><b>29</b><small>Cursos Técnicos</small></div>
+        <div class="cNum"><b>31</b><small>Cursos Técnicos</small></div>
         <div class="cNum"><b>09</b><small>Cursos de Iniciação</small></div>
         <div class="cNum"><b>02</b><small>Cursos de Especialização</small></div>
       </div>
@@ -144,13 +203,27 @@
         ${AREAS.map(([nome, slug]) => `
           <div class="it"><img src="${rec(`assets/areas/${slug}.png`)}" alt=""><b>${esc(nome)}</b></div>`).join('')}
       </div>
+      ${hubDe('fazemos')}
     </section>`;
+
+  /* ══════ 05 · soluções ══════ */
+  const solucoes = () => {
+    const h = SECOES.find(s => s.id === 'solucoes') || {};
+    return `
+    <section class="cap" id="c4">
+      <div class="cRot"><i></i>Soluções</div>
+      <h2>Soluções <span class="ac">customizadas.</span></h2>
+      ${h.lead ? `<p class="lead">${esc(h.lead)}</p>` : ''}
+      ${h.corpo ? `<p class="lead">${esc(h.corpo)}</p>` : ''}
+      ${hubDe('solucoes')}
+    </section>`;
+  };
 
   /* ══════ 05 · categorias ══════ */
   const cursosDe = il => CURSOS.filter(c => il.areas.includes(c[1]));
 
   const categorias = () => `
-    <section class="cap" id="c4">
+    <section class="cap" id="c5">
       <div class="cRot"><i></i>Cursos Técnicos</div>
       <h2>A oferta, por <span class="ac">categoria.</span></h2>
       <p class="lead">São ${ILHAS.length} categorias e ${CURSOS.length} títulos técnicos.
@@ -190,7 +263,7 @@
      conteúdo próprio: o índice dos 27, para quem sabe o nome do curso e
      não quer caçar a categoria dele. */
   const indice = () => `
-    <section class="cap" id="c5">
+    <section class="cap" id="c6">
       <div class="cRot"><i></i>Detalhamento</div>
       <h2>Os ${CURSOS.length} títulos, <span class="ac">em ordem.</span></h2>
       <p class="lead">Toque num curso para ver objetivo, campo de atuação e o
@@ -207,7 +280,7 @@
 
   /* ══════ 07 · fechamento ══════ */
   const fecho = () => `
-    <section class="cap fundo fecho" id="c6" style="background-image:url(${cena('laboratorio')})">
+    <section class="cap fundo fecho" id="c7" style="background-image:url(${cena('laboratorio')})">
       <img src="${rec('assets/brand/logo-negativo.svg')}" alt="Firjan SENAI">
     </section>`;
 
@@ -218,7 +291,7 @@
       <span class="onde" id="cOnde">01 · Capa</span>
       <button class="cMenuBt" id="cMenuBt" type="button" aria-label="Abrir o sumário"><span></span></button>
     </div>
-    ${capa()}${quem()}${presenca()}${fazemos()}${categorias()}${indice()}${fecho()}
+    ${capa()}${quem()}${presenca()}${fazemos()}${solucoes()}${categorias()}${indice()}${fecho()}
     <div class="cMenu" id="cMenu" role="dialog" aria-label="Sumário">
       <div class="veu" data-fechar></div>
       <nav>
@@ -267,6 +340,27 @@
     menu.querySelectorAll('a').forEach((a, k) => a.classList.toggle('on', k === i));
   }, { root: raiz, threshold: [0, .01, .1, .25, .5, .75, 1] });
   secoes.forEach(s => obs.observe(s));
+
+  /* ── os vídeos dos hubs: tocam só enquanto estão na tela ──
+     Vídeo continua vídeo no telefone, mas sem gastar dados de quem não
+     chegou até ele: o arquivo só é pedido quando aparece, e pausa ao sair.
+     Uma lista (data-src com vários) se reveza, como no palco. */
+  const obsVideo = new IntersectionObserver(entradas => {
+    for (const e of entradas) {
+      const v = e.target;
+      if (!e.isIntersecting) { v.pause(); continue; }
+      if (!v.src && v.dataset.src) {
+        const lista = v.dataset.src.split(' ');
+        let k = 0;
+        v.src = rec(lista[0]);
+        if (lista.length > 1) v.addEventListener('ended', () => {
+          k = (k + 1) % lista.length; v.src = rec(lista[k]); v.play().catch(() => {});
+        });
+      }
+      v.play().catch(() => {});
+    }
+  }, { root: raiz, threshold: .4 });
+  raiz.querySelectorAll('.cMidias video, .cRecurso video').forEach(v => obsVideo.observe(v));
 
   /* ── categoria abre e fecha ── */
   raiz.addEventListener('click', e => {

@@ -203,6 +203,53 @@
 .cMod li span{margin-left:auto;font-size:14px;font-weight:600;color:var(--azul);
   font-variant-numeric:tabular-nums;white-space:nowrap}
 
+/* ══════ hubs (04 e 05) ══════
+   Cada sub-tela vira um cartão aberto. O infográfico entra inteiro, e o
+   que na tela grande é rótulo sobre a arte desce para uma lista. */
+.cHub{background:var(--carta);border:1px solid var(--linha);border-radius:18px;
+  padding:18px 18px 20px;margin-bottom:14px}
+.cHub > h3{margin:0;font-size:20px;font-weight:700;line-height:1.22;color:var(--profundo);text-wrap:balance}
+.cHub .lead{margin-top:10px}
+.cHub p{margin:10px 0 0;font-size:15px;line-height:1.55;color:var(--tinta2)}
+.cPeca{margin:14px -4px 4px;padding:8px;border-radius:14px;background:#EEF3F5}
+.cPeca img{width:100%}
+.cFoto{margin:14px 0 4px;border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:var(--linha)}
+.cFoto img{width:100%;height:100%;object-fit:cover}
+/* as mídias do slide numa faixa lateral: a próxima aparece pela borda e
+   convida a rolar */
+.cMidias{display:flex;gap:10px;margin:14px -20px 4px;padding:0 20px;overflow-x:auto;
+  scroll-snap-type:x mandatory;scrollbar-width:none}
+.cMidias::-webkit-scrollbar{display:none}
+.cMidias>figure{flex:0 0 86%;margin:0;scroll-snap-align:start}
+.cMidias img,.cMidias video{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px;
+  background:var(--linha)}
+.cQuadro{position:relative;overflow:hidden;border-radius:14px}
+.cRecurso .cQuadro{border-radius:12px}
+.cQuadro img.cSelo{position:absolute;top:-4%;right:-3%;width:32%;height:auto;aspect-ratio:auto;border-radius:0;
+  background:none;opacity:.72;filter:brightness(0) invert(1) drop-shadow(0 2px 8px rgba(11,20,24,.25));pointer-events:none}
+.cMidias figcaption,.cLegenda{margin-top:8px;font-size:14px;font-weight:600;line-height:1.35;color:var(--tinta2)}
+.cNumHub{margin-top:14px}
+.cEtapas{list-style:none;margin:14px 0 0;padding:0}
+.cEtapas li{padding:11px 0;border-top:1px solid var(--linha)}
+.cEtapas b{display:block;font-size:15px;font-weight:700;color:var(--profundo)}
+.cEtapas em{display:block;margin-top:2px;font-style:normal;font-size:14px;font-weight:600;color:var(--azul)}
+.cEtapas span{display:block;margin-top:3px;font-size:14px;line-height:1.45;color:var(--tinta2)}
+.cLista{margin-top:16px}
+.cLista h4{margin:0 0 6px;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--azul)}
+.cLista ul{margin:0;padding:0 0 0 18px}
+.cLista li{padding:4px 0;font-size:15px;line-height:1.45;color:var(--tinta)}
+.cLista li small{display:block;font-size:14px;color:var(--tinta3)}
+.cNota{font-style:italic}
+.cRecursos{display:grid;gap:16px;margin-top:14px}
+.cRecurso img,.cRecurso video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;background:var(--linha)}
+.cRecurso b{display:block;margin-top:8px;font-size:16px;font-weight:700;color:var(--profundo)}
+.cRecurso p{margin-top:4px}
+.cCapas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.cCapas img{width:100%;aspect-ratio:1773/2474;object-fit:cover;border-radius:6px;
+  box-shadow:0 8px 16px -10px rgba(24,87,126,.5)}
+.cLink{display:inline-flex;align-items:center;min-height:44px;margin-top:14px;padding:0 18px;
+  border-radius:99px;background:var(--azul);color:#fff;font-size:15px;font-weight:700;text-decoration:none}
+
 /* ══════ fecho ══════ */
 .cap.fecho{min-height:74vh;display:grid;place-items:center;text-align:center}
 .cap.fecho img{width:72%;max-width:300px}

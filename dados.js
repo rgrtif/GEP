@@ -52,8 +52,10 @@ function fatiasPorcento(valores) {
 }
 
 /* ── capítulos do rodapé ── */
-const CAPS = ['Capa', 'Quem somos', 'Presença', 'O que fazemos', 'Cursos Técnicos',
-              'Detalhamento', 'Fechamento'];
+/* "Soluções" entrou em setembro: é o segundo hub, logo depois de O que
+   fazemos, na ordem dos slides 13 a 17 do PPT do cliente. */
+const CAPS = ['Capa', 'Quem somos', 'Presença', 'O que fazemos', 'Soluções',
+              'Cursos Técnicos', 'Detalhamento', 'Fechamento'];
 
 /* ── 03 · unidades no mapa do RJ ──
    4º campo = de que lado o rótulo se ancora no mapa holográfico (t/b/l/r).
@@ -76,55 +78,57 @@ const UNIDADES = [
 /* ── as 3 cenas do learning map ── */
 const PAGINAS = [
     {
-      id: 'p1',
-      nome: 'Automação, TI e produção',
       cena: 'ilhas-p1.jpg',
-      ilhas: ['auto', 'eletro1', 'metalmec', 'comunic', 'tiSoft', 'logist', 'gestao']
+      ilhas: ['gestao', 'ti', 'logist', 'eletro', 'auto', 'mecanica', 'audiovis']
     },
     {
-      id: 'p2',
-      nome: 'Processos, obra e alimentos',
       cena: 'ilhas-p2.jpg',
-      ilhas: ['solda', 'tiHard', 'refri', 'grafica', 'segur', 'alim', 'civil']
+      ilhas: ['solda', 'refri', 'segur', 'grafica', 'alim', 'civil']
     },
     {
-      id: 'p3',
-      nome: 'Energia, química e moda',
       cena: 'ilhas-p3.jpg',
-      ilhas: ['energ', 'quim', 'metalurg', 'vest', 'automot']
+      ilhas: ['energ', 'quim', 'moda', 'automot']
+    },
+    {
+      cena: 'ilhas-p4.jpg',
+      ilhas: ['naval', 'petroq', 'bebidas']
     }
   ];
 
 /* ── 27 títulos técnicos — transcritos da tabela do cliente ──
    [nome, área tecnológica, carga horária, foto] */
 const CURSOS = [
-    ['Automação Industrial', 'Automação e Mecatrônica', 1200, 'automacao-industrial'],
+    ['Automação Industrial', 'Automação Industrial', 1200, 'automacao-industrial'],
     ['Eletrotécnica', 'Eletroeletrônica', 1200, 'eletrotecnica'],
-    ['Mecânica', 'Metalmecânica - Mecânica', 1200, 'mecanica'],
-    ['Computação Gráfica', 'Comunicação Midiática', 1200, 'computacao-grafica'],
-    ['Produção de Áudio e Vídeo', 'Comunicação Midiática', 1200, 'audio-video'],
-    ['Mecatrônica', 'Automação e Mecatrônica', 1200, 'mecatronica'],
-    ['Desenvolvimento de Sistemas', 'TI - Software', 1200, 'desenvolvimento-sistemas'],
+    ['Mecânica', 'Mecânica Industrial', 1200, 'mecanica'],
+    ['Computação Gráfica', 'Gráfica e Mídias Impressas e Digitais', 1200, 'computacao-grafica'],
+    ['Produção de Áudio e Vídeo', 'Audiovisual e Animação Digital', 1200, 'audio-video'],
+    ['Mecatrônica', 'Automação Industrial', 1200, 'mecatronica'],
+    ['Desenvolvimento de Sistemas', 'Tecnologia da Informação - TI', 1200, 'desenvolvimento-sistemas'],
     ['Logística', 'Logística', 1200, 'logistica'],
     ['Planejamento e Controle da Produção', 'Gestão Industrial', 1000, 'pcp'],
-    ['Soldagem', 'Metalmecânica - Soldagem', 1200, 'soldagem'],
-    ['Redes de Computadores', 'TI - Hardware', 1000, 'redes'],
+    ['Soldagem', 'Metalurgia e Soldagem', 1200, 'soldagem'],
+    ['Redes de Computadores', 'Tecnologia da Informação - TI', 1000, 'redes'],
     ['Refrigeração e Climatização', 'Refrigeração e Climatização', 1200, 'refrigeracao'],
-    ['Processos Gráficos', 'Gráfica, Mídias Impressas e Digitais', 1000, 'processos-graficos'],
-    ['Eletromecânica', 'Metalmecânica - Mecânica', 1200, 'eletromecanica'],
+    ['Processos Gráficos', 'Gráfica e Mídias Impressas e Digitais', 1200, 'processos-graficos'],
+    ['Eletromecânica', 'Mecânica Industrial', 1200, 'eletromecanica'],
     ['Segurança do Trabalho', 'Segurança do Trabalho', 1200, 'seguranca'],
     ['Alimentos', 'Alimentos', 1200, 'alimentos'],
     ['Edificações', 'Construção Civil', 1200, 'edificacoes'],
     ['Sistemas de Energia Renovável', 'Energias Renováveis', 1200, 'energia-renovavel'],
     ['Química', 'Química', 1200, 'quimica'],
-    ['Eletroeletrônica', 'Eletroeletrônica', 1200, 'eletroeletronica'],
-    ['Vestuário', 'Vestuário', 1200, 'vestuario'],
+    ['Vestuário', 'Moda – Têxtil e Vestuário', 1200, 'vestuario'],
     ['Manutenção Automotiva', 'Automotiva', 1200, 'automotiva'],
-    ['Manutenção de Máquinas Industriais', 'Metalmecânica - Mecânica', 1200, 'maquinas-industriais'],
+    ['Manutenção de Máquinas Industriais', 'Mecânica Industrial', 1200, 'maquinas-industriais'],
     ['Panificação', 'Alimentos', 1200, 'panificacao'],
-    ['Metalurgia', 'Metalmecânica - Metalurgia', 1200, 'metalurgia'],
-    ['Qualidade', 'Gestão Industrial', 1000, 'qualidade'],
-    ['Produção de Moda', 'Vestuário', 1000, 'moda']
+    ['Produção de Moda', 'Moda – Têxtil e Vestuário', 1000, 'moda'],
+    ['Construção Naval', 'Construção Naval', 1200, 'construcaonaval'],
+    ['Multimídia', 'Gráfica e Mídias Impressas e Digitais', 1000, 'multimidia'],
+    ['Petroquímica', 'Petroquímica e Plástico', 1200, 'petroquimica'],
+    ['Cervejaria', 'Bebidas', 1200, 'cervejaria'],
+    ['Instrumentação Industrial', 'Automação Industrial', 1200, 'instrumentacaoindustri'],
+    ['Modelagem do Vestuário', 'Moda – Têxtil e Vestuário', 1000, 'modelagemdovestuario'],
+    ['Design Gráfico', 'Gráfica e Mídias Impressas e Digitais', 1000, 'designgrafico']
   ];
 
 /* ── as 19 ilhas ──
@@ -194,6 +198,501 @@ const CURSOS = [
    O selo fica só na solda robotizada. Célula robotizada é Indústria 4.0 de
    verdade; pôr o mesmo selo numa bancada de panificação seria enfeite que
    afirma coisa errada. */
+/* ══════════════ os hubs: "O que fazemos" e "Soluções" ══════════════
+
+   Duas telas que não mostram conteúdo próprio — elas ABREM conteúdo. Cada
+   uma tem sub-telas que se percorrem para o lado, e o trilho vertical da
+   apresentação só volta a andar quando a pessoa sai do hub. Foi a decisão
+   da reunião de 03/09: manter o usuário na mesma sessão em vez de somar
+   treze slides ao percurso principal.
+
+   Por que uma lista de dados e não treze telas escritas à mão: as sub-telas
+   têm a mesma estrutura e mudam só o conteúdo. Escritas à mão, cada ajuste
+   de layout viraria treze edições — e é justamente o "template escalável"
+   que o Ricardo pediu para reaproveitar nos próximos projetos.
+
+   `tipo` diz ao app (hubs.js) como montar:
+     texto        prosa, número em destaque opcional, e um painel de mídia
+                  (`video` e/ou `fotos`, que se revezam)
+     infografico  arte gerada + rótulos por cima, como a SAGA
+     slider       itens que se percorrem, um por vez, cada um com vídeo
+     galeria      capas de material (`pasta` + `imagens`); clicar amplia
+     link         blocos de texto e um endereço externo
+     grupo        não é tela: junta sub-telas sob um nome (Espaços de
+                  inovação) e vira um cartão no hub
+
+   TODO texto aqui é o do .pptx do cliente, como está escrito nos slides 5
+   a 17 — resumo nosso não entra. As únicas mexidas: travessão vira outra
+   pontuação, e erro de digitação óbvio é corrigido ("Gameficação",
+   "seguimentos"), sempre avisando.
+
+   Mídia: `video` é assets/video/<nome>.mp4; `fotos`, `poster` e `capa`
+   são caminhos dentro de assets/. Tudo que vem do .pptx é extraído por
+   scripts/extrair-midia-hubs.mjs — não se copia à mão.
+
+   `peca` é o arquivo em assets/pecas/. Quando não existe ainda, a tela
+   monta com um lugar reservado no lugar — nada quebra, e o
+   `conferir-lacunas` cobra a arte que falta.
+
+   `capa` e `sub` de cada parte de primeiro nível são o cartão dela no hub. */
+const SECOES = [
+  { id: 'fazemos', tela: 3, nome: 'O que fazemos',
+    partes: [
+
+    { id: 'modalidades', nome: 'Modalidades', tipo: 'infografico',
+      /* rótulos no dobro do tamanho (pedido do André, 21/09): a cena é
+         larga e o texto das caixas ficava miúdo na projeção */
+      rotEscala: 1.45,
+      capa: 'hub/modalidades-cena.jpg', sub: 'Da iniciação ao aperfeiçoamento',
+      /* fundo, e não peça: a escada foi gerada JUNTO com o galpão
+         (insumos/prompts/cena-modalidades.md). A peça recortada posta sobre
+         o galpão comum não casava com ele quando mudou de tamanho: outra
+         escala, outra luz. O painel troca o fundo ao entrar aqui. */
+      fundo: 'hub/modalidades-cena.jpg', rotW: 420,
+      /* slide 5. A reunião decidiu: o texto que está ali JÁ é o resumo
+         final da timeline, então vai inteiro, sem popup por etapa. */
+      lead: 'Nossas opções de formação, desenhadas para atender a diferentes ' +
+            'momentos de carreira, desde o primeiro contato com o mercado de ' +
+            'trabalho até a especialização técnica aprofundada.',
+      /* x/y é um ponto do aro aceso de cada plataforma: ali não há gente,
+         então o fio pode morrer nele. dx/dy põe cada caixa junto da SUA
+         ilha. As três primeiras flutuam acima das plataformas, sobre a
+         parede do fundo, numa segunda escada paralela à das ilhas; a altura
+         diferente é o que as separa. Cursos Técnicos (o destaque, porque é
+         o assunto do deck inteiro) fica no piso dentro do arco da esteira,
+         e Aperfeiçoamento à direita da ilha mais alta, sobre a janela: em
+         cima dela estão o homem do VR e a navegação. Nenhum fio passa por
+         pessoa. */
+      etapas: [
+        { n: 'Cursos de Iniciação', x: 24.5, y: 81, dx: -6, dy: -16,
+          d: 'Destinados a quem deseja ter o primeiro contato com uma área profissional.' },
+        { n: 'Aprendizagem Industrial', x: 44.5, y: 72.5, dx: -10, dy: -25,
+          d: 'Modalidade que une teoria na sala de aula e prática no chão de fábrica, em conformidade com a Lei da Aprendizagem. É voltada para jovens (geralmente entre 14 e 24 anos).' },
+        { n: 'Cursos de Qualificação', x: 57, y: 59, dx: -1, dy: -37,
+          d: 'Preparam o aluno para ingressar e atuar diretamente em uma profissão específica. Desenvolvem habilidades técnicas e práticas essenciais para o exercício de um ofício.' },
+        /* w próprio: em 300px o texto dá 7 linhas, passa do limite do
+           text-wrap:balance do navegador e o "atuação." ficava sozinho */
+        { n: 'Cursos Técnicos', x: 67, y: 48.5, dx: -1, dy: 27, forte: 1, w: 380,
+          d: 'Oferecem formação profissionalizante de nível médio, com uma grade curricular mais ampla, teórica e aprofundada. Conferem diploma de Técnico e habilitam o profissional a assumir responsabilidades maiores, gerenciar processos e executar projetos complexos em sua área de atuação.' },
+        { n: 'Cursos de Aperfeiçoamento', x: 79.5, y: 34, dx: 6, dy: -3,
+          d: 'Focados em profissionais que já atuam na área ou possuem conhecimento prévio e buscam atualização tecnológica, aprendizado de novas técnicas ou especialização em processos específicos.' },
+      ] },
+
+    { id: 'espacos', nome: 'Espaços de inovação', tipo: 'grupo',
+      capa: 'hub/fablab-1.jpg', sub: 'FabLab, Indústria 4.0, SAGA e Unidades Móveis', partes: [
+      /* slide 6. "projetos os desafios da indústria" no original: sobrou
+         uma palavra na revisão dele, e a frase fica sem sentido com ela. */
+      { id: 'fablab', nome: 'FabLab e SENAI Lab', tipo: 'texto', numero: '30',
+        rotulo: 'FabLab em toda a rede da Firjan SENAI',
+        fotos: ['hub/fablab-1.jpg', 'hub/fablab-2.jpg'],
+        /* legendas: uma por mídia, na ordem em que aparecem (o vídeo, se
+           houver, e depois as fotos). Não vêm do PPT, que não legenda as
+           fotos: descrevem o que a imagem mostra, e o cliente valida. */
+        legendas: ['Estudantes desenvolvendo projetos no FabLab',
+                   'Bancadas de prototipagem do SENAI Lab'],
+        lead: 'O FabLab e SENAI Lab é um espaço colaborativo e criativo, ' +
+              'equipado com tecnologias de ponta como impressoras 3D, cortadoras ' +
+              'a laser e fresadoras CNC, projetado para tirar ideias do papel e ' +
+              'transformá-las em soluções reais.',
+        corpo: 'Inspirado na cultura maker e no conceito de "aprender fazendo", ' +
+               'o ambiente conecta estudantes, empreendedores e indústrias, ' +
+               'servindo como um polo de inovação e prototipagem rápida. É no ' +
+               'FabLab que os desafios da indústria ganham forma, permitindo que ' +
+               'os alunos testem, validem e aperfeiçoem produtos e processos em ' +
+               'um ecossistema que estimula a autonomia, o pensamento crítico e a ' +
+               'aplicação prática das tecnologias da Indústria 4.0.' },
+
+      /* slide 7: o vídeo é o do próprio slide, com as legendas dele */
+      { id: 'i40', nome: 'Indústria 4.0', tipo: 'texto',
+        video: 'i40', poster: 'hub/i40-poster.jpg',
+        /* regra das telas de texto com mídia: TODA mídia do slide entra, em
+           sequência (o vídeo e depois as fotos, em roda) */
+        fotos: ['hub/i40-1.jpg', 'hub/i40-3.jpg', 'hub/i40-2.jpg'],
+        legendas: ['Célula Smart 4.0 em operação: armazenamento automatizado dos blocos',
+                   'Módulos de estoque e processo da linha Smart 4.0',
+                   'Estação da linha Smart 4.0',
+                   'Esteira e painéis de controle da linha integrada'],
+        lead: 'A Quarta Revolução Industrial não é apenas um tema de estudo no ' +
+              'SENAI; é o próprio ambiente onde o aprendizado acontece.',
+        corpo: 'Integrar tecnologias como Internet das Coisas (IoT), Inteligência ' +
+               'Artificial, Manufatura Avançada, Big Data e Digital Twins à ' +
+               'educação profissional é o nosso compromisso para garantir que os ' +
+               'estudantes estejam sempre um passo à frente das exigências do ' +
+               'mercado global. No SENAI, a Indústria 4.0 é vivenciada na ' +
+               'prática, transformando a sala de aula em um ecossistema de ' +
+               'inovação contínua.' },
+
+      { id: 'saga', nome: 'SAGA SENAI de Inovação', tipo: 'infografico',
+        /* fundo, e não peça: a trilha foi gerada junto com o galpão
+           (insumos/prompts/cena-saga.md), como a de Modalidades. A peça
+           recortada sobre o galpão comum não casava com ele e tomava o
+           espaço do texto de abertura. */
+        fundo: 'hub/saga-cena.jpg',
+        /* rótulos compactos (ícone ao lado): as cenas da faixa do meio sobem
+           até o vão entre as faixas, e a caixa alta não cabia ali */
+        rotCompacto: 1,
+        /* a cena sobe 4%: a cabeça dos mentores quase encosta no cartão do
+           título e as caixas de baixo ganham margem da borda */
+        fundoY: -1,
+        /* slide 8, inteiro */
+        lead: 'A SAGA SENAI de Inovação é uma iniciativa nacional que integra o ' +
+              'ambiente educacional às demandas reais do setor produtivo, ' +
+              'transformando desafios técnicos, operacionais e de sustentabilidade ' +
+              'das indústrias em oportunidades de aprendizagem aplicada. Por meio ' +
+              'do programa Conecta Indústria, as empresas cadastram ' +
+              'situações-problema reais e equipes multidisciplinares de ' +
+              'estudantes, orientadas por docentes, utilizam seus conhecimentos ' +
+              'para desenvolver soluções inovadoras e viáveis.',
+        etapas: [
+          /* A cena é uma serpentina de três faixas (insumos/prompts/cena-saga.md,
+             versão 3), com um anel ciano sob cada cena. x/y é o anel: o fio
+             pousa nele. Os rótulos ficam em linhas:
+             · faixa de cima: Demandas à esquerda da fábrica e Start à direita
+               da lâmpada, na mesma altura (y 24);
+             · faixa do meio: Grand Prix e Protótipo logo abaixo da estrada
+               (y 70,5); Integra à direita da mesa, acima da curva, porque
+               embaixo dela está a apresentação;
+             · faixa de baixo: Aceleração e Inova abaixo da estrada (y 96).
+             As notas ficam junto de quem elas descrevem: mentores na margem
+             esquerda, novas equipes abaixo do grupo das lâmpadas. */
+          { n: 'Start', marco: 1, x: 78.5, y: 31, dx: 7.5, dy: -11 },
+          { n: 'Demandas da Indústria', icone: 'predio', x: 55, y: 30, dx: -13, dy: -10,
+            d: 'Os problemas propostos pelas indústrias para as equipes' },
+          { n: 'Grand Prix', icone: 'trofeu', x: 35, y: 56, dx: 0, dy: 10.5,
+            d: 'Uma maratona de inovação onde as soluções são encontradas' },
+          { n: 'Protótipo Sujo', icone: 'impressora', x: 54, y: 56, dx: 3, dy: 10.5,
+            d: 'No GP os primeiros protótipos são construídos' },
+          { n: 'Integra SENAI', icone: 'equipe', x: 79.5, y: 57, dx: 8, dy: -6, forte: 1,
+            d: 'As equipes criam projetos integradores e protótipos funcionais' },
+          { n: 'Inova SENAI', icone: 'crescimento', x: 70, y: 82, dx: 0, dy: 5,
+            d: 'O modelo de negócio é construído e apresentado a investidores' },
+          { n: 'Aceleração', icone: 'foguete', x: 18, y: 82, dx: -3, dy: 5,
+            d: 'Suporte para acelerar o crescimento e entrar no mercado' },
+        ],
+        notas: [
+          { t: 'Docentes e profissionais da indústria atuam como mentores', icone: 'pessoas', x: 12, y: 64, w: 250 },
+          { t: 'Novas equipes e novas ideias podem entrar na trilha', icone: 'ciclo', x: 32, y: 88 },
+        ] },
+
+      /* slide 9. O número é o do slide 9 (31); a tela 03 diz 30 unidades
+         móveis — divergência avisada, não corrigida por conta própria. */
+      { id: 'moveis', nome: 'Unidades Móveis', tipo: 'texto', numero: '31',
+        rotulo: 'Unidades Móveis do SENAI',
+        video: 'moveis', poster: 'hub/moveis-1.jpg',
+        fotos: ['hub/moveis-1.jpg', 'hub/moveis-3.jpg', 'hub/moveis-2.jpg'],
+        legendas: ['Cozinha-escola dentro de uma unidade móvel',
+                   'Escola Móvel de Panificação',
+                   'Ambiente de panificação montado dentro da carreta',
+                   'Unidade móvel de soldagem'],
+        lead: 'As Unidades Móveis do SENAI são importantes instrumentos de ' +
+              'interiorização, levando infraestrutura especializada diretamente ' +
+              'às empresas e municípios do Estado do Rio de Janeiro.',
+        corpo: 'Por meio de oficinas, laboratórios itinerantes, ampliam o acesso ' +
+               'à qualificação profissional, atendendo indústrias, trabalhadores ' +
+               'e comunidades. Atualmente, o SENAI conta com 31 Unidades Móveis, ' +
+               'que ampliam o alcance da educação profissional e levam ' +
+               'infraestrutura especializada a diferentes regiões. As unidades ' +
+               'atuam em diversos segmentos, como metalmecânica, alimentos, ' +
+               'automotivo, elétrica, gráfica, tecnologia da informação (TI) e têxtil.',
+        url: 'https://firjan.com.br/noticias/escola-movel-de-panificacao-da-firjan-senai-retoma-atividades-em-macae-8AE482919E99FEC6019F60D43E064E9B-00.htm',
+        rotuloUrl: 'Ler a notícia da escola móvel de panificação' },
+    ] },
+
+    { id: 'recursos', nome: 'Recursos educacionais', tipo: 'grupo',
+      /* capa: o quadro de Realidade Virtual, e não o de Realidade Mista —
+         esse mostra a marca do fabricante da caldeira */
+      capa: 'hub/rv.jpg', sub: 'Digitais, portfólio e customizados', partes: [
+      /* slide 10. Cada recurso tem o vídeo que o cliente pôs ao lado dele
+         no slide; o casamento vídeo ↔ recurso está em extrair-midia-hubs. */
+      { id: 'digitais', nome: 'Recursos Didáticos Digitais', tipo: 'slider',
+        /* tema escuro como a tela 03. O vídeo de fundo saiu a pedido do
+           cliente (18/09: 'acho que não ficou bom'); no lugar, uma rede
+           abstrata em movimento lento, que não disputa com o conteúdo */
+        escuro: 1, fundoRede: 1,
+        lead: 'No SENAI, a sala de aula vai muito além das quatro paredes e dos ' +
+              'livros tradicionais. Nossos Recursos Didáticos Digitais são ' +
+              'ferramentas tecnológicas de ponta, desenvolvidas para transformar ' +
+              'a teoria em prática imediata e conectar você diretamente com a ' +
+              'realidade da Indústria 4.0.',
+        corpo: 'Aqui, a tecnologia é a maior aliada do seu aprendizado, permitindo ' +
+               'que você visualize o invisível, simule o complexo e pratique o ' +
+               'essencial de qualquer lugar e a qualquer momento.',
+        itens: [
+          /* legendas: uma por vídeo, na ordem de `videos` */
+          { n: 'Realidade Virtual', sigla: 'RV', video: 'rv', poster: 'hub/rv.jpg',
+            legendas: ['Treinamento em pátio portuário virtual com o Meta Quest'],
+            d: 'Uso de Headset Meta QUEST 2 e 3 para proporcionar imersão total em ambientes virtuais tridimensionais.' },
+          { n: 'Realidade Mista', sigla: 'RM', video: 'rm', poster: 'hub/rm.jpg',
+            legendas: ['Caldeira virtual sobreposta ao ambiente real com o Meta Quest 3'],
+            d: 'Uso de Headset Meta QUEST 3, combina elementos reais e virtuais, possibilitando a interação simultânea com equipamentos, ferramentas e ambientes físicos.' },
+          /* três vídeos no slide 10 para este recurso: se revezam */
+          { n: 'Objetos e Ambientes imersivos', videos: ['objetos', 'navio-sonda', 'triturador'], poster: 'hub/objetos.jpg',
+            legendas: ['Turbina a vapor em vista em corte', 'Tour virtual por um navio-sonda',
+                       'Triturador de madeira em vista explodida'],
+            d: 'Uso de computador para interagir com objetos e ambientes virtuais, proporcionando vistas explodidas de equipamentos e tour virtual.' },
+          { n: 'Simulação 3D', video: 'simulacao', poster: 'hub/simulacao.jpg',
+            legendas: ['Operação submarina simulada com joystick'],
+            d: 'Consiste em atividades práticas realizadas em ambientes virtuais tridimensionais, que reproduzem com fidelidade manobras, operações ou tarefas do mundo real, proporcionando treinamento seguro e imersivo para o desenvolvimento de habilidades profissionais.' },
+          { n: 'Gamificação 2D ou 3D', video: 'gamificacao', poster: 'hub/gamificacao.jpg',
+            legendas: ['Jogo de operação de uma planta industrial'],
+            d: 'Consiste em atividades interativas e lúdicas, desenvolvidas em ambientes bidimensionais ou tridimensionais, com o objetivo de estimular o aprendizado e aprimorar competências em diferentes áreas de atuação.' },
+        ] },
+
+      /* slides 11 e 12: só o título e as capas, que é o que o cliente pôs.
+         `n` é o título impresso na capa — vira texto alternativo e legenda
+         da capa ampliada. */
+      { id: 'livros', nome: 'Portfólio', tipo: 'galeria', pasta: 'hub/livros',
+        imagens: [
+          { f: 'caldeireiro', n: 'Caldeireiro · Módulo Básico' },
+          { f: 'instrumentista-industrial', n: 'Instrumentista Industrial' },
+          { f: 'eletricista-industrial', n: 'Eletricista Industrial' },
+          { f: 'inspetor-de-soldagem-n1', n: 'Inspetor de Soldagem N1' },
+          { f: 'mecanico-de-manutencao', n: 'Mecânico de Manutenção' },
+          { f: 'pedreiro-refratarista', n: 'Pedreiro Refratarista' },
+        ] },
+
+      { id: 'customizados', nome: 'Customizados', tipo: 'galeria', pasta: 'hub/customizados',
+        imagens: [
+          { f: 'sinaleiro-modulo-especifico', n: 'Sinaleiro · Movimentação de Cargas · Módulo Específico' },
+          { f: 'fundamentos-comunicacao-matematica', n: 'Fundamentos de Comunicação e Matemática Aplicada' },
+          { f: 'introducao-industria-offshore', n: 'Introdução à Indústria Offshore e Segurança' },
+          { f: 'inspecao-equipamentos-cargas', n: 'Inspeção de Equipamentos de Movimento de Cargas' },
+          { f: 'sinaleiro-modulo-basico', n: 'Sinaleiro de Movimentação de Cargas · Módulo Básico' },
+          { f: 'marketing-digital', n: 'Marketing Digital' },
+          { f: 'conteudo-youtube', n: 'Desenvolvimento de Conteúdo para YouTube' },
+          { f: 'fotografia-smartphone', n: 'Fotografia Digital com Smartphone' },
+          { f: 'projeto-maker', n: 'Empreendedorismo e Projeto Maker' },
+        ] },
+    ] },
+  ] },
+
+  /* slide 13: o texto de abertura é da tela do hub, e o infográfico que o
+     cliente pôs no mesmo slide vira a primeira sub-tela */
+  { id: 'solucoes', tela: 4, nome: 'Soluções',
+    /* a ilustração que abre a tela 05, sob as abas */
+    ilustracao: 'hub/solucoes-cena.jpg',
+    /* a tela 05 no formato do learning map (insumos/prompts/mapa-solucoes.md):
+       uma ilha por solução. a = ponto no meio da ilha, c = centro do chip,
+       ambos em % do palco. Enquanto a imagem não existe, a tela segue com a
+       ilustração e as abas. */
+    /* cena: 'hub/solucoes-mapa.jpg' quando a imagem chegar; null deixa o
+       mapa desligado sem pedir um arquivo que não existe */
+    mapa: { cena: 'hub/solucoes-mapa.jpg', ilhas: {
+      /* nenhum chip pode ficar sobre a cabeça de alguém da cena: a faixa do
+         alto (janelas) e o piso entre as fileiras são os lugares livres */
+      customizadas: { icone: 'ajuste',      ax: 44.5, ay: 42, cx: 49,   cy: 9.5 },
+      ead:          { icone: 'capelo',      ax: 71,   ay: 43, cx: 71,   cy: 12 },
+      certificacao: { icone: 'escudo',      ax: 50.5, ay: 76, cx: 61,   cy: 52 },
+      competencias: { icone: 'crescimento', ax: 20,   ay: 76, cx: 34,   cy: 55.5 },
+      incompany:    { icone: 'predio',      ax: 82.5, ay: 75, cx: 85,   cy: 47 },
+    } },
+    titulo: 'Soluções customizadas',
+    lead: 'As soluções podem contemplar formação, aperfeiçoamento, ' +
+          'atualização e desenvolvimento de competências técnicas, com ' +
+          'conteúdos, carga horária, metodologia e formato adaptados à ' +
+          'realidade da empresa.',
+    corpo: 'O resultado é uma capacitação mais assertiva, prática e conectada ' +
+           'ao ambiente industrial, contribuindo para o desenvolvimento dos ' +
+           'profissionais, o aumento da produtividade e a melhoria dos processos.',
+    partes: [
+
+    { id: 'customizadas', nome: 'Soluções customizadas de capacitação', aba: 'Customizadas', tipo: 'infografico',
+      capa: 'hub/capa-customizadas.jpg', sub: 'Formação sob medida para gerar resultados',
+      /* 40% e centrada no piso (17/09): a 54% a peça subia sobre as estantes
+         e a linha da frente passava do rodapé, parecendo voar */
+      /* 18/09: cena única com o galpão (insumos/prompts/cena-customizadas.md),
+         expandida para deixar chão livre em volta das plataformas */
+      fundo: 'hub/customizadas-cena.jpg',
+      /* cartão estreito: a técnica da plataforma de Conteúdo fica logo abaixo
+         do canto direito do cartão largo */
+      cabW: 440,
+      /* texto do slide 13. O fluxo vem da imagem que o cliente pôs no
+         slide (ppt/media/image52.png): "Necessidade da empresa" entra, a
+         Solução customizada fica no centro e cinco dimensões a cercam, cada
+         uma com pergunta e itens. Transcrito aqui para virar texto editável
+         sobre a peça. Rótulos das dimensões por fora de cada plataforma,
+         Benefícios e Valor nos cantos de baixo, Base técnica no alto à
+         direita, onde o cliente a pôs. */
+      /* título, subtítulo e abertura são os que o cliente escreveu dentro
+         do próprio infográfico do slide 13 */
+      lead: 'Transformamos o desafio da sua empresa em uma solução de ' +
+            'aprendizagem sob medida, com foco em desenvolver competências e ' +
+            'gerar impacto real no negócio.',
+      /* x/y é a borda da plataforma (onde o fio morre); dx/dy leva o
+         rótulo para fora dela, longe das figuras. */
+      /* `icone`/`icones`: os mesmos ícones que o cliente pôs em cada caixa
+         do infográfico do slide 13 */
+      entrada: { n: 'Necessidade da empresa', icone: 'predio', x: 47, y: 36, dx: 0, dy: -22,
+                 d: 'Desafios, processos, tecnologias e objetivos estratégicos.' },
+      centro: { n: 'Solução customizada', icone: 'equipe', x: 57, y: 66, dx: 9, dy: 19, forte: 1,
+                d: 'Capacitação alinhada à realidade da empresa e ao seu negócio.' },
+      etapas: [
+        /* acima das duas figuras do fundo do galpão (a do carrinho e o
+           colega): à esquerda da plataforma, rótulo e fio as cobriam */
+        { n: '1. Conteúdo', icone: 'documento', p: 'O que ensinar?', x: 29, y: 49, dx: -17, dy: -4,
+          itens: ['Processos', 'Equipamentos', 'Procedimentos', 'Requisitos internos'] },
+        { n: '2. Público', icone: 'pessoas', p: 'Para quem?', x: 28, y: 72, dx: -16, dy: -9,
+          itens: ['Perfil', 'Experiência', 'Pré-requisitos'] },
+        { n: '3. Prática', icone: 'ajuste', p: 'Como aplicar?', x: 72, y: 48, dx: 16, dy: -4,
+          itens: ['Casos reais da empresa', 'Simulações', 'Cenários do ativo'] },
+        { n: '4. Entrega', icone: 'local', p: 'Onde e como entregar?', x: 74, y: 73, dx: 14, dy: -11,
+          itens: ['Local', 'Turno', 'Duração', 'Turma fechada'] },
+        /* seq: os itens da Medição são uma sequência no desenho do cliente
+           (Aprendizagem › Aplicação › Resultados › Melhoria), os outros não */
+        { n: '5. Medição', icone: 'grafico', p: 'Qual resultado foi gerado?', x: 46, y: 82, dx: -12, dy: -2, seq: 1,
+          itens: ['Aprendizagem', 'Aplicação no dia a dia', 'Resultados para o negócio', 'Melhoria contínua'],
+          icones: ['capelo', 'capacete', 'crescimento', 'ciclo'] },
+      ],
+      base: { n: 'Base técnica do SENAI', icone: 'lampada', x: 88, y: 24,
+              d: 'Portfólio, metodologias e especialistas que garantem qualidade e segurança na entrega.' },
+      grupos: [
+        { n: 'Benefícios para sua empresa', x: 16, y: 83, w: 400,
+          icones: ['alvo', 'pessoas', 'crescimento', 'escudo', 'cifrao'], itens: [
+          'Capacitação alinhada à estratégia do negócio',
+          'Desenvolvimento de competências essenciais',
+          'Aumento da produtividade e da qualidade',
+          'Mais segurança e conformidade',
+          'Melhor retorno sobre o investimento em capacitação',
+        ] },
+        { n: 'Valor para a empresa', icone: 'trofeu', x: 86, y: 84, w: 330, itens: [
+          'Profissionais mais preparados', 'Processos mais eficientes',
+          'Mais segurança', 'Melhores resultados',
+        ] },
+      ],
+      /* VERSÃO ALTERNATIVA, só para o cliente escolher: clicar no logotipo
+         da Firjan nesta sub-tela troca para ela, e clicar de novo volta.
+         O texto é o mesmo de cima (`de` aponta o campo); muda o fundo, que
+         é uma cena com as salas desenhadas, e o texto vai escrito nas
+         placas da própria cena.
+           q: os 4 cantos da placa em % do palco (sup. esq., sup. dir.,
+              inf. dir., inf. esq.): o texto é projetado nela, em perspectiva;
+           plana: texto reto centrado em x/y; linha: reto, alinhado à
+              esquerda a partir de x;
+           rotulos: posição dos nomes sob os ícones já desenhados na cena. */
+      alternativa: {
+        /* versão B: o infográfico do cliente redesenhado em SVG, com
+           movimento, na identidade do projeto. O texto é o mesmo de cima
+           (hubs.js lê entrada, centro, etapas, base e grupos). */
+        svg: 1,
+        /* aprovada como padrão: abre nela, e o logotipo leva à cena */
+        padrao: 1,
+      } },
+
+    /* slide 14. O texto estava DENTRO de uma imagem (ppt/media/image54.png)
+       e foi transcrito para virar texto editável. "seguimentos" no original
+       corrigido para "segmentos". */
+    { id: 'ead', nome: 'Educação a distância', aba: 'EaD', tipo: 'link',
+      /* capa em 3D no estilo do projeto (insumos/prompts/capa-ead.md,
+         imagem em insumos/mapa-solto/thumb2.jpeg) */
+      capa: 'hub/capa-ead.jpg', sub: 'Desenvolvimento e operação',
+      titulo: 'Área de Educação a Distância',
+      /* a mesma cena da capa do cartão, ocupando a direita da tela */
+      arte: 'hub/ead-cena.jpg',
+      blocos: [
+        { n: 'Desenvolvimento', icone: 'ideia',
+          d: 'Projetos de capacitação, entendendo o negócio das empresas para ' +
+             'produzir soluções educacionais customizadas e entregar as melhores ' +
+             'estratégias de aprendizagem que possibilitem o desenvolvimento de ' +
+             'competências e habilidades requeridas aos profissionais nos ' +
+             'variados segmentos.' },
+        { n: 'Operação', icone: 'engrenagem',
+          d: 'Gestão dos ambientes virtuais de aprendizagem e sustentação das ' +
+             'soluções de capacitação para empresas, prestando atendimento a este ' +
+             'público, fazendo acompanhamento pedagógico das turmas e dando ' +
+             'suporte técnico.' },
+      ],
+      url: 'https://nucleoeadsenai.github.io/Portfolio/', rotuloUrl: 'Ver o portfólio de EaD' },
+
+    { id: 'certificacao', nome: 'Certificação profissional', aba: 'Certificação', tipo: 'infografico',
+      capa: 'hub/capa-certificacao.jpg', sub: 'Acreditada pelo INMETRO',
+      /* peça alta (palco redondo visto de cima): a 88% passava da altura
+         do palco. À direita e menor, deixa a coluna da esquerda para os
+         nomes das certificações, que são longos demais para rótulo. */
+      /* 40,5% e não 52: as figuras da peça ficavam maiores que as pessoas
+         pintadas no galpão, e o palco parecia colado por cima da cena */
+      /* 18/09: a peça recortada sobre o galpão saiu, como em Competências.
+         Agora é uma cena só (insumos/prompts/cena-certificacao-unica.md),
+         com o palco desenhado dentro do galpão. */
+      fundo: 'hub/certificacao-cena.jpg',
+      /* o logo do INMETRO no centro do medalhão da peça. O arquivo tem de
+         ser o OFICIAL, enviado pelo cliente: enquanto não existir, a imagem
+         some sozinha (onerror) e o medalhão fica liso, como está. */
+      selo: { img: 'hub/inmetro-holo.png', x: 50, y: 31, w: 86 },
+      lead: 'A Firjan SENAI é acreditada pelo INMETRO como Organismo de ' +
+            'Certificação de Pessoas.',
+      grupos: [
+        /* abaixo das duas figuras do fundo do galpão (a do carrinho e o
+           colega): mais acima, o cartão as cobria pela metade. */
+        { n: 'Em operação e com acreditação do INMETRO', x: 20, y: 68, w: 520, itens: [
+          'Inspetor de Soldagem Nível 1',
+          'Soldador de Tubos e Conexões Poliméricos',
+          'Pintura Industrial Nível 1',
+          'Inspetor de Recebimento, Armazenamento e Instalação em Automação de Processos',
+          'Inspetor de Recebimento, Armazenamento e Instalação em Automação Elétrica',
+        ] },
+        { n: 'Em operação e sem acreditação do INMETRO', x: 20, y: 87, w: 520, itens: ['Atmosferas Explosivas'] },
+      ],
+      url: 'https://www.firjan.com.br/senai/educacao/certificacao-profissional/' },
+
+    { id: 'competencias', nome: 'Gestão de competências', aba: 'Competências', tipo: 'infografico',
+      capa: 'hub/capa-competencias.jpg', sub: 'Estruturação e execução, em duas fases',
+      /* peça diagonal: a 88% padrão descia para fora do palco. Menor e
+         deslocada para a direita, deixa a coluna da esquerda para a Fase 1
+         e o canto de baixo à direita para a Fase 2. */
+      /* 48% e não 62, pelo mesmo motivo da Certificação: gente da peça na
+         escala da gente do galpão */
+      /* 38%: a 48% as pessoas ainda ficavam maiores que as do galpão e a
+         plataforma de trás cobria a parede do fundo */
+      /* 18/09: a peça recortada sobre o galpão saiu. Agora é uma cena só,
+         com as duas plataformas desenhadas dentro do galpão
+         (insumos/prompts/cena-competencias.md) — mesma luz, mesma
+         perspectiva, gente do mesmo tamanho da do fundo. */
+      fundo: 'hub/competencias-cena.jpg',
+      /* texto do slide 16, como está no PPT. O complemento que ele põe
+         entre parênteses vira segundo item do par: [passo, complemento],
+         e entra como linha menor embaixo do passo. */
+      lead: 'O programa de Gestão de Competências da Firjan SENAI é um modelo ' +
+            'gerencial para ajudar a sua empresa no planejamento, na captação, ' +
+            'no desenvolvimento e na avaliação de pessoas. O objetivo é ' +
+            'identificar competências essenciais e determinantes para que a sua ' +
+            'organização tenha profissionais eficazes e se torne cada vez mais ' +
+            'produtiva e competitiva.',
+      fases: [
+        { n: 'Fase 1 · Estruturação do processo', x: 17, y: 72, w: 400, itens: [
+          'Identificação da demanda da empresa',
+          'Elaboração do macroprocesso',
+          'Construção de perfis profissionais',
+          'Estruturação do processo de avaliação diagnóstica',
+          ['Estruturação do caminho de aperfeiçoamento profissional',
+           'Aplicação do mundo do trabalho na educação: trilha de desenvolvimento'],
+        ] },
+        { n: 'Fase 2 · Execução do processo', x: 78, y: 72, w: 500, itens: [
+          ['Aplicação de exames escritos e práticos para avaliação das competências',
+           'Identificação dos gargalos e dos pontos fortes'],
+          'Análise de resultados',
+          'Análise crítica do processo com mapeamento das lições aprendidas',
+          ['Operacionalização do caminho de aperfeiçoamento profissional',
+           'Trilha de desenvolvimento'],
+        ] },
+      ],
+      url: 'https://www.firjan.com.br/senai/empresas/educacao/gestao-de-competencias/' },
+
+    /* slide 17 */
+    { id: 'incompany', nome: 'Treinamento in company', aba: 'In company', tipo: 'texto',
+      capa: 'hub/incompany.jpg', sub: 'Turmas fechadas, sob medida',
+      fotos: ['hub/incompany.jpg'],
+      lead: 'Oferecemos o modelo de treinamento in company e turmas fechadas ' +
+            'com projetos desenhados sob medida para as necessidades exclusivas ' +
+            'da sua empresa.',
+      corpo: 'A Firjan SENAI leva a excelência da educação profissional para ' +
+             'dentro da sua indústria, estruturando a formação no seu próprio ' +
+             'ambiente fabril. Ao integrar o ensino ao chão de fábrica, garantimos ' +
+             'que sua equipe desenvolva competências essenciais operando os seus ' +
+             'equipamentos e vivenciando as rotinas do seu processo produtivo, o ' +
+             'que acelera a curva de aprendizagem e o retorno para a operação.' },
+  ] },
+];
+
 const PAINEL02 = [
   { foto: 'eletrotecnica', selo: '',
     legenda: 'Eletrotécnica — geração, transmissão e distribuição de energia.' },
@@ -247,68 +746,29 @@ const AREAS = [
 
 const ILHAS = [
     {
-      id: 'auto',
+      id: 'gestao',
       pag: 0,
-      nome: 'Automação e Mecatrônica',
-      icone: 'automacao',
-      sub: 'Robótica, CLP e acionamentos',
-      areas: ['Automação e Mecatrônica'],
-      ax: 25.5,
-      ay: 70,
-      cx: 14,
-      cy: 82,
-      ativo: 1
-    },
-    {
-      id: 'eletro1',
-      pag: 0,
-      nome: 'Eletroeletrônica',
-      icone: 'eletroeletronica',
-      sub: 'Eletrotécnica e eletrônica',
-      areas: ['Eletroeletrônica'],
+      nome: 'Gestão Industrial',
+      icone: 'gestao',
+      sub: 'PCP e qualidade',
       ax: 50,
-      ay: 55,
-      cx: 54,
-      cy: 65,
+      ay: 28,
+      cx: 50,
+      cy: 5.5,
+      areas: ['Gestão Industrial'],
       ativo: 1
     },
     {
-      id: 'metalmec',
+      id: 'ti',
       pag: 0,
-      nome: 'Metalmecânica - Mecânica',
-      icone: 'metalmecanica',
-      sub: 'Usinagem e manutenção industrial',
-      areas: ['Metalmecânica - Mecânica'],
-      ax: 77.5,
-      ay: 73,
-      cx: 86,
-      cy: 47,
-      ativo: 1
-    },
-    {
-      id: 'comunic',
-      pag: 0,
-      nome: 'Comunicação Midiática',
-      icone: 'midias',
-      sub: 'Áudio, vídeo e computação gráfica',
-      areas: ['Comunicação Midiática'],
-      ax: 51.5,
-      ay: 89,
-      cx: 74,
-      cy: 84,
-      ativo: 1
-    },
-    {
-      id: 'tiSoft',
-      pag: 0,
-      nome: 'TI - Software',
+      nome: 'Tecnologia da Informação',
       icone: 'ti',
-      sub: 'Desenvolvimento de sistemas',
-      areas: ['TI - Software'],
-      ax: 30,
-      ay: 42.5,
-      cx: 34,
-      cy: 22,
+      sub: 'Sistemas e redes',
+      ax: 27,
+      ay: 45,
+      cx: 11,
+      cy: 43,
+      areas: ['Tecnologia da Informação - TI'],
       ativo: 1
     },
     {
@@ -317,50 +777,78 @@ const ILHAS = [
       nome: 'Logística',
       icone: 'logistica',
       sub: 'Cadeia de suprimentos',
-      areas: ['Logística'],
       ax: 71,
-      ay: 37,
-      cx: 85,
-      cy: 22,
+      ay: 39,
+      cx: 84,
+      cy: 17.5,
+      areas: ['Logística'],
       ativo: 1
     },
     {
-      id: 'gestao',
+      id: 'eletro',
       pag: 0,
-      nome: 'Gestão Industrial',
-      icone: 'gestao',
-      sub: 'PCP e qualidade',
-      areas: ['Gestão Industrial'],
-      ax: 49,
-      ay: 31.5,
-      cx: 57,
-      cy: 13,
+      nome: 'Eletroeletrônica',
+      icone: 'eletroeletronica',
+      sub: 'Eletrotécnica e eletrônica',
+      ax: 48.5,
+      ay: 54,
+      cx: 50,
+      cy: 38,
+      areas: ['Eletroeletrônica'],
+      ativo: 1
+    },
+    {
+      id: 'auto',
+      pag: 0,
+      nome: 'Automação Industrial',
+      icone: 'automacao',
+      sub: 'Robótica, CLP e instrumentação',
+      ax: 24,
+      ay: 66,
+      cx: 11,
+      cy: 79.5,
+      areas: ['Automação Industrial'],
+      ativo: 1
+    },
+    {
+      id: 'mecanica',
+      pag: 0,
+      nome: 'Mecânica Industrial',
+      icone: 'metalmecanica',
+      sub: 'Usinagem e manutenção',
+      ax: 74,
+      ay: 66,
+      cx: 79.5,
+      cy: 87.5,
+      areas: ['Mecânica Industrial'],
+      ativo: 1
+    },
+    {
+      id: 'audiovis',
+      pag: 0,
+      nome: 'Audiovisual e Animação',
+      icone: 'midias',
+      sub: 'Áudio, vídeo e computação gráfica',
+      /* chip acima da ilha, no meio, entrando um pouco na plataforma de
+         Eletroeletrônica (pedido do André, 18/09) */
+      ax: 50,
+      ay: 84,
+      cx: 50,
+      cy: 67,
+      areas: ['Audiovisual e Animação Digital'],
       ativo: 1
     },
     {
       id: 'solda',
       pag: 1,
-      nome: 'Metalmecânica - Soldagem',
+      nome: 'Metalurgia e Soldagem',
       icone: 'soldagem',
-      sub: 'Processos de soldagem',
-      areas: ['Metalmecânica - Soldagem'],
+      sub: 'Processos de união e metalurgia',
       ax: 31,
       ay: 45,
-      cx: 42,
-      cy: 20,
-      ativo: 1
-    },
-    {
-      id: 'tiHard',
-      pag: 1,
-      nome: 'TI - Hardware',
-      icone: 'ti',
-      sub: 'Redes e infraestrutura',
-      areas: ['TI - Hardware'],
-      ax: 50,
-      ay: 33,
-      cx: 55,
-      cy: 10,
+      cx: 11,
+      cy: 44,
+      areas: ['Metalurgia e Soldagem'],
       ativo: 1
     },
     {
@@ -368,25 +856,12 @@ const ILHAS = [
       pag: 1,
       nome: 'Refrigeração e Climatização',
       icone: 'refrigeracao',
-      sub: 'Sistemas prediais e industriais',
-      areas: ['Refrigeração e Climatização'],
-      ax: 72,
-      ay: 44.5,
+      sub: 'Sistemas de frio e ar-condicionado',
+      ax: 69,
+      ay: 43,
       cx: 84,
-      cy: 20,
-      ativo: 1
-    },
-    {
-      id: 'grafica',
-      pag: 1,
-      nome: 'Gráfica, Mídias Impressas e Digitais',
-      icone: 'midias',
-      sub: 'Processos gráficos',
-      areas: ['Gráfica, Mídias Impressas e Digitais'],
-      ax: 25.5,
-      ay: 76.5,
-      cx: 16,
-      cy: 83,
+      cy: 17,
+      areas: ['Refrigeração e Climatização'],
       ativo: 1
     },
     {
@@ -395,11 +870,24 @@ const ILHAS = [
       nome: 'Segurança do Trabalho',
       icone: 'seguranca',
       sub: 'Prevenção e normas',
+      ax: 50,
+      ay: 56,
+      cx: 50.5,
+      cy: 30,
       areas: ['Segurança do Trabalho'],
-      ax: 51,
-      ay: 59.5,
-      cx: 65,
-      cy: 56,
+      ativo: 1
+    },
+    {
+      id: 'grafica',
+      pag: 1,
+      nome: 'Gráfica e Mídias',
+      icone: 'midias',
+      sub: 'Impressos e mídias digitais',
+      ax: 22,
+      ay: 68,
+      cx: 13,
+      cy: 87,
+      areas: ['Gráfica e Mídias Impressas e Digitais'],
       ativo: 1
     },
     {
@@ -407,12 +895,12 @@ const ILHAS = [
       pag: 1,
       nome: 'Alimentos',
       icone: 'alimentos',
-      sub: 'Processamento e panificação',
-      areas: ['Alimentos'],
+      sub: 'Processos e panificação',
       ax: 77,
-      ay: 69.5,
-      cx: 86,
-      cy: 48,
+      ay: 68,
+      cx: 80,
+      cy: 85,
+      areas: ['Alimentos'],
       ativo: 1
     },
     {
@@ -420,12 +908,12 @@ const ILHAS = [
       pag: 1,
       nome: 'Construção Civil',
       icone: 'construcao',
-      sub: 'Edificações e projetos',
+      sub: 'Obra e edificações',
+      ax: 51.5,
+      ay: 87,
+      cx: 37,
+      cy: 79,
       areas: ['Construção Civil'],
-      ax: 51,
-      ay: 90,
-      cx: 57,
-      cy: 71,
       ativo: 1
     },
     {
@@ -434,11 +922,13 @@ const ILHAS = [
       nome: 'Energias Renováveis',
       icone: 'energias',
       sub: 'Solar e eólica',
+      ax: 31,
+      ay: 46,
+      cx: 38,
+      cy: 12,
+      mx: 30,
+      my: 40,
       areas: ['Energias Renováveis'],
-      ax: 32,
-      ay: 43,
-      cx: 32,
-      cy: 22,
       ativo: 1
     },
     {
@@ -446,38 +936,29 @@ const ILHAS = [
       pag: 2,
       nome: 'Química',
       icone: 'quimica',
-      sub: 'Processos e laboratório',
+      sub: 'Análises e processos químicos',
+      ax: 71,
+      ay: 45,
+      cx: 70,
+      cy: 14,
+      mx: 70,
+      my: 40,
       areas: ['Química'],
-      ax: 70.5,
-      ay: 40,
-      cx: 84,
-      cy: 20,
       ativo: 1
     },
     {
-      id: 'metalurg',
+      id: 'moda',
       pag: 2,
-      nome: 'Metalmecânica - Metalurgia',
-      icone: 'metalmecanica',
-      sub: 'Fundição, tratamentos e ensaios',
-      areas: ['Metalmecânica - Metalurgia'],
-      ax: 50.5,
-      ay: 57,
-      cx: 50.5,
-      cy: 78,
-      ativo: 1
-    },
-    {
-      id: 'vest',
-      pag: 2,
-      nome: 'Vestuário',
+      nome: 'Moda, Têxtil e Vestuário',
       icone: 'vestuario',
-      sub: 'Confecção e moda',
-      areas: ['Vestuário'],
-      ax: 25.5,
-      ay: 75.5,
-      cx: 14,
-      cy: 62,
+      sub: 'Modelagem e confecção',
+      ax: 37,
+      ay: 80,
+      cx: 49,
+      cy: 78,
+      mx: 25,
+      my: 74,
+      areas: ['Moda – Têxtil e Vestuário'],
       ativo: 1
     },
     {
@@ -486,11 +967,57 @@ const ILHAS = [
       nome: 'Automotiva',
       icone: 'automotiva',
       sub: 'Manutenção veicular',
+      ax: 78,
+      ay: 62,
+      cx: 90,
+      cy: 44,
+      mx: 76,
+      my: 74,
       areas: ['Automotiva'],
-      ax: 77.5,
-      ay: 74,
-      cx: 86,
-      cy: 55,
+      ativo: 1
+    },
+    {
+      id: 'naval',
+      pag: 3,
+      nome: 'Construção Naval',
+      icone: 'construcao',
+      sub: 'Casco, solda e estruturas',
+      ax: 30,
+      ay: 53,
+      cx: 33,
+      cy: 21,
+      areas: ['Construção Naval'],
+      ativo: 1
+    },
+    {
+      id: 'petroq',
+      pag: 3,
+      nome: 'Petroquímica e Plástico',
+      icone: 'quimica',
+      sub: 'Processos e transformação',
+      /* chip abaixo e à direita da ilha, no piso livre, apontando o meio dela
+         (pedido do André, 18/09): em cima ele disputava com o mezanino e a
+         chamada saía da borda da plataforma, não do centro */
+      ax: 70,
+      ay: 52,
+      cx: 76,
+      cy: 71,
+      mx: 71,
+      my: 42,
+      areas: ['Petroquímica e Plástico'],
+      ativo: 1
+    },
+    {
+      id: 'bebidas',
+      pag: 3,
+      nome: 'Bebidas',
+      icone: 'bebidas',
+      sub: 'Envase e controle de qualidade',
+      ax: 50,
+      ay: 88,
+      cx: 25,
+      cy: 86,
+      areas: ['Bebidas'],
       ativo: 1
     }
   ];
@@ -1145,39 +1672,6 @@ const DETALHE = {
         ]
       ]
     },
-    'Eletroeletrônica': {
-      video: 'p32386518',
-      obj: 'No curso Técnico em Eletroeletrônica da Firjan SENAI você aprende a desenvolver projetos, implementar e realizar a manutenção de sistemas eletroeletrônicos de baixa tensão, utilizando tecnologias voltadas à conectividade, eficiência energética e inovação. O curso forma profissionais preparados para atuar conforme a legislação, normas técnicas, requisitos de qualidade, meio ambiente e saúde e segurança do trabalho.',
-      campo: 'O Técnico em Eletroeletrônica pode atuar em indústrias de manufatura, empresas de automação industrial, concessionárias de energia, fabricantes de equipamentos eletroeletrônicos, empresas de manutenção, telecomunicações, construção civil, integradoras de sistemas, hospitais, shopping centers e empresas de tecnologia.',
-      rec: 'A transformação digital e a expansão da automação industrial aumentam continuamente a demanda por profissionais especializados em eletroeletrônica. O diploma do SENAI é reconhecido pela indústria nacional e proporciona excelentes oportunidades de empregabilidade, além de servir como base para cursos superiores nas áreas de engenharia, automação e tecnologia.',
-      mods: [
-        [
-          'Módulo Básico',
-          80,
-          ['Ferramentas Digitais para o Mercado de Trabalho · 40h', 'Linguagens e Multimeios · 40h']
-        ],
-        [
-          'Módulo Introdutório',
-          120,
-          ['Fundamentos da Eletroeletrônica · 120h']
-        ],
-        [
-          'Específico Profissional I',
-          340,
-          ['Implementação de Sistemas Eletroeletrônicos Prediais · 120h', 'Implementação de Sistemas Eletroeletrônicos Industriais · 120h', 'Implementação de Sistemas Eletrônicos Industriais · 60h', 'Processos de Implementação de Sistemas Eletroeletrônicos · 40h']
-        ],
-        [
-          'Específico Profissional II',
-          252,
-          ['Manutenção de Sistemas Eletroeletrônicos Prediais · 60h', 'Manutenção de Sistemas Eletroeletrônicos Industriais · 92h', 'Manutenção de Sistemas Eletrônicos Industriais · 60h', 'Supervisão da Manutenção de Sistemas Eletroeletrônicos · 40h']
-        ],
-        [
-          'Específico Profissional III',
-          408,
-          ['Projeto de Sistemas Eletroeletrônicos Prediais · 88h', 'Projeto de Sistemas Eletroeletrônicos Industriais · 120h', 'Projeto de Circuitos Eletrônicos Industriais · 80h', 'Neoindustrialização: (R)evolução, Produtividade e Sustentabilidade · 20h', 'Desenvolvimento de Projetos · 100h']
-        ]
-      ]
-    },
     'Vestuário': {
       video: 'p16938947',
       obj: 'No Curso Técnico em Vestuário você terá o pleno desenvolvimento de conhecimentos gerais e tecnológicos, bem como competências para implementar o processo produtivo do vestuário, supervisionar o processo produtivo do vestuário, participar do processo de desenvolvimento do produto, de acordo com os padrões estabelecidos pela empresa, seguindo normas técnicas, de saúde e segurança do trabalho, princípios de gestão da qualidade e de preservação ambiental.',
@@ -1305,67 +1799,6 @@ const DETALHE = {
         ]
       ]
     },
-    Metalurgia: {
-      video: 'p32386590',
-      obj: 'No curso Técnico em Metalurgia da Firjan SENAI você aprende a implementar, coordenar e desenvolver soluções tecnológicas para os processos metalúrgicos, atuando desde a transformação de materiais metálicos até o controle dos processos produtivos. O curso prepara o profissional para aplicar tecnologias industriais, considerando os conceitos de ESG, normas técnicas, qualidade, sustentabilidade, meio ambiente e saúde e segurança do trabalho.',
-      campo: 'O Técnico em Metalurgia encontra oportunidades em siderúrgicas, fundições, indústrias metalúrgicas, empresas de transformação de metais, fabricantes de autopeças, setor automotivo, naval, petróleo e gás, mineração, laboratórios de ensaios, centros de pesquisa e empresas de consultoria técnica.',
-      rec: 'A indústria metalúrgica é um dos pilares do desenvolvimento industrial brasileiro, demandando profissionais qualificados para otimizar processos, aumentar a produtividade e garantir a qualidade dos produtos. O diploma do SENAI é amplamente reconhecido pelo setor produtivo e amplia as oportunidades de inserção no mercado de trabalho e continuidade dos estudos em cursos superiores de tecnologia e engenharia.',
-      mods: [
-        [
-          'Módulo Básico',
-          80,
-          ['Ferramentas Digitais para o Mercado de Trabalho · 40h', 'Linguagens e Multimeios · 40h']
-        ],
-        [
-          'Módulo Introdutório',
-          208,
-          ['Desenho Técnico · 60h', 'Ciências Aplicadas a Metalurgia · 60h', 'Fundamentos da Metalurgia · 48h', 'Usinagem Aplicada a Metalurgia · 40h']
-        ],
-        [
-          'Específico Profissional I',
-          228,
-          ['Ensaios Metalúrgicos · 116h', 'Técnicas de Análises Metálicas · 60h', 'Corrosão · 52h']
-        ],
-        [
-          'Específico Profissional II',
-          408,
-          ['Fundição · 40h', 'Manufatura Aditiva · 60h', 'Conformação Mecânica · 80h', 'Tratamentos Térmicos e Termoquímicos · 60h', 'Tratamento de Superfície e de Efluentes · 40h', 'Metalurgia Física · 68h', 'Soldagem · 60h']
-        ],
-        [
-          'Específico Profissional III',
-          276,
-          ['Gestão de Pessoas · 44h', 'Projetos Metalúrgicos · 60h', 'Controle de Processos Industriais · 52h', 'Neoindustrialização: (R)evolução, Produtividade e Sustentabilidade · 20h', 'Desenvolvimento de Projetos · 100h']
-        ]
-      ]
-    },
-    Qualidade: {
-      video: 'p11887093',
-      obj: 'No curso Técnico em Qualidade da Firjan SENAI você aprende a implantar sistemas de gestão e controle da qualidade, promover melhorias contínuas nos processos organizacionais e contribuir para a excelência operacional e a satisfação dos clientes, utilizando tecnologias emergentes e respeitando a legislação, normas de qualidade, sustentabilidade e saúde e segurança do trabalho.',
-      campo: 'O Técnico em Qualidade pode atuar em indústrias de diversos segmentos, empresas de serviços, logística, saúde, tecnologia, construção civil, comércio, laboratórios, consultorias, certificadoras e organizações públicas e privadas que possuam sistemas de gestão da qualidade.',
-      rec: 'A gestão da qualidade tornou-se um diferencial competitivo para organizações de todos os setores, aumentando a demanda por profissionais especializados em melhoria contínua e gestão de processos. O diploma do SENAI é reconhecido pelo mercado e amplia as oportunidades de empregabilidade, além de servir como base para a continuidade dos estudos em cursos superiores nas áreas de gestão, engenharia e tecnologia.',
-      mods: [
-        [
-          'Módulo Básico',
-          80,
-          ['Ferramentas Digitais para o Mercado de Trabalho · 40h', 'Linguagens e Multimeios · 40h']
-        ],
-        [
-          'Módulo Introdutório',
-          180,
-          ['Fundamentos da Qualidade · 60h', 'Sistemas de Medição · 120h']
-        ],
-        [
-          'Específico Profissional I',
-          480,
-          ['Análise e Diagnóstico de Processos · 120h', 'Melhoria Contínua e Conformidade do SGQ · 160h', 'Planejamento e Implementação do SGQ · 100h', 'Auditoria da Qualidade · 100h']
-        ],
-        [
-          'Específico Profissional II',
-          260,
-          ['Aprimoramento de Processos · 140h', 'Neoindustrialização: (R)evolução, Produtividade e Sustentabilidade · 20h', 'Desenvolvimento de Projetos · 100h']
-        ]
-      ]
-    },
     'Produção de Moda': {
       video: 'p16938947',
       obj: 'No curso Técnico em Produção de Moda você aprende a desenvolver projetos de comunicação de moda, composição visual e estilo, seguindo normas técnicas, de saúde e segurança do trabalho, princípios de gestão da qualidade e de sustentabilidade.',
@@ -1391,6 +1824,227 @@ const DETALHE = {
           'Específico Profissional II',
           564,
           ['Projeto Desfile de Moda · 80h', 'Projetos de Exposição de Produtos · 160h', 'Projetos de Imagem de Moda · 164h', 'Projeto Executivo de Comunicação de Moda · 80h', 'Desenvolvimento de Projetos · 80h']
+        ]
+      ]
+    },
+    'Construção Naval': {
+      video: 'p32386590',
+      obj: 'No curso Técnico em Construção Naval você aprende a fabricação, a montagem e a manutenção de estruturas e componentes navais e offshore, controlar a qualidade e a conformidade de processos e produtos e, liderar tecnicamente as equipes envolvidas nos processos, de acordo com normas técnicas, de saúde e segurança no trabalho, de qualidade e ambientais.',
+      campo: 'Indústrias de construção e reparo naval (estaleiros), empresas do setor offshore (plataformas), indústrias metalmecânicas e empresas prestadoras de serviços de manutenção de estruturas e componentes de embarcações.',
+      rec: 'O diploma do SENAI na área tem reconhecimento destacado na indústria e permite habilitação técnica junto ao Conselho Regional dos Técnicos Industriais. Quem faz um curso técnico, além de ter chance de empregabilidade, fica também mais preparado para o Ensino Superior.',
+      mods: [
+        [
+          'Módulo Básico',
+          112,
+          ['Saúde e Segurança no Trabalho · 12h', 'Introdução a Indústria 4.0 · 24h', 'Introdução a Tecnologia da Informação e Comunicação · 40h', 'Introdução a Qualidade e Produtividade · 16h', 'Introdução ao Desenvolvimento de Projetos · 12h', 'Sustentabilidade nos processos industriais · 8h']
+        ],
+        [
+          'Módulo Introdutório',
+          240,
+          ['Fundamentos de Máquinas, Equipamentos e Ferramentas · 40h', 'Medidas e Representações Gráficas Navais · 80h', 'Tecnologia Naval · 60h', 'Cálculos Aplicados à Construção Naval · 60h']
+        ],
+        [
+          'Específico Profissional I',
+          380,
+          ['Montagem de Estruturas Navais e Offshore · 120h', 'Fabricação de Componentes e Estruturas Navais e Offshore · 120h', 'Manutenção e Conversão de Estruturas Navais e Offshore · 140h']
+        ],
+        [
+          'Específico Profissional II',
+          180,
+          ['Provas de Mar para Embarcações · 80h', 'Ensaios e Testes para Processos de Fabricação e Montagem Naval e Offshore · 100h']
+        ],
+        [
+          'Específico Profissional III',
+          288,
+          ['Planejamento e Gestão da Produção, Manutenção e Reparo Naval e Offshore · 98h', 'Comissionamento de Embarcações e Unidades Offshore · 90h', 'Desenvolvimento de Projeto · 100h']
+        ]
+      ]
+    },
+    'Multimídia': {
+      video: 'p38533949',
+      obj: 'No curso Técnico em Multimídia você aprende a coordenar e executar projetos para mídias digitais, seguindo padrões e normas técnicas, referentes à propriedade intelectual, acessibilidade, usabilidade e sustentabilidade.',
+      campo: 'Estúdios de gravação e edição de áudio e vídeo, empresas de mídia, agências, laboratórios multimídia com estações de trabalho e softwares, e espaços criativos para projetos interativos e imersivos.',
+      rec: '"O setor de mídias digitais e produção cultural está em constante expansão, demandando profissionais qualificados para coordenar e executar projetos inovadores, garantindo a acessibilidade, usabilidade e a qualidade técnica de produtos audiovisuais, gráficos e interativos. O diploma do SENAI é amplamente reconhecido pelo mercado, ampliando as oportunidades de empregabilidade em estúdios, agências e produtoras, e preparando o profissional para a continuidade dos estudos em cursos superiores nas áreas de Design Gráfico, Publicidade e Propaganda, Produção Multimídia, Cinema e Audiovisual, e Jogos Digitais."',
+      mods: [
+        [
+          'Módulo Básico',
+          112,
+          ['Introdução ao Desenvolvimento de Projetos · 12h', 'Introdução a Tecnologia da Informação e Comunicação · 40h', 'Saúde e Segurança no Trabalho · 12h', 'Introdução a Qualidade e Produtividade · 16h', 'Introdução a Indústria 4.0 · 24h', 'Sustentabilidade nos Processos Industriais · 8h']
+        ],
+        [
+          'Módulo Introdutório',
+          108,
+          ['História do Design Gráfico · 20h', 'Fundamentos de Teoria da Cor · 32h', 'Fundamentos da Semiótica · 28h', 'Fundamentos de Desenho e Percepção Visual · 28h']
+        ],
+        [
+          'Específico Profissional I',
+          188,
+          ['Tipografia · 44h', 'Imagem Digital · 84h', 'Marketing Digital · 60h']
+        ],
+        [
+          'Específico Profissional II',
+          392,
+          ['Projeto de Identidade Visual · 84h', 'Design de Interfaces · 100h', 'Design Web · 60h', 'Produção Audiovisual · 68h', 'Motion Design · 80h']
+        ],
+        [
+          'Específico Profissional III',
+          200,
+          ['Design de Animação 3D · 100h', 'Desenvolvimento de Projetos · 100h']
+        ]
+      ]
+    },
+    'Petroquímica': {
+      video: 'p38533949',
+      obj: 'No curso Técnico em Petroquímica você aprende a operar e controlar os sistemas petroquímicos, seguindo padrões técnicos, de qualidade, segurança, saúde e responsabilidade socioambiental.',
+      campo: 'Unidades de refino de petróleo e gás, unidades de processamentos químicos e petroquímicos, unidades de processamento de gás natural, além de unidades de separação, conversão e tratamento.',
+      rec: 'O setor de petróleo, gás e refino está entre os maiores e mais estratégicos segmentos da indústria nacional, demandando profissionais qualificados para operar e controlar sistemas petroquímicos, garantindo a qualidade técnica e a responsabilidade socioambiental. O diploma do SENAI é amplamente reconhecido pelo mercado, ampliando as oportunidades de empregabilidade em polos petroquímicos e refinarias, e preparando o profissional para a continuidade dos estudos em cursos superiores nas áreas de Química, Engenharia, Petróleo e Gás, e Automação.',
+      mods: [
+        [
+          'Módulo Básico',
+          112,
+          ['Saúde e Segurança no Trabalho · 12h', 'Introdução a Indústria 4.0 · 24h', 'Introdução a Tecnologia da Informação e Comunicação · 40h', 'Introdução a Qualidade e Produtividade · 16h', 'Introdução ao Desenvolvimento de Projetos · 12h', 'Sustentabilidade nos processos industriais · 8h']
+        ],
+        [
+          'Módulo Introdutório',
+          212,
+          ['Fundamentos de Mecânica · 40h', 'Introdução à Indústria Petroquímica · 52h', 'Fundamentos de Química · 80h', 'Fundamentos de Física · 40h']
+        ],
+        [
+          'Específico Profissional I',
+          256,
+          ['Processos da Indústria Petroquímica · 96h', 'Instrumentação Aplicada aos Processos Petroquímicos · 72h', 'Hidráulica e Pneumática Aplicadas aos Processos Petroquímicos · 48h', 'Tubulações, Válvulas e Acessórios · 40h']
+        ],
+        [
+          'Específico Profissional II',
+          276,
+          ['Operação de Sistemas Petroquímicos · 164h', 'Operação de Sistemas de Utilidades · 112h']
+        ],
+        [
+          'Específico Profissional III',
+          344,
+          ['Gerenciamento e Tratamento de Resíduos de Processos · 56h', 'Ensaios Analíticos e Instrumentais para Controle de Processos Petroquímicos · 80h', 'Gestão de Pessoas · 32h', 'Gestão da Produção · 76h', 'Desenvolvimento de Projetos · 100h']
+        ]
+      ]
+    },
+    Cervejaria: {
+      video: 'p16938947',
+      obj: 'No curso Técnico em Cervejaria você aprende a coordenar os processos de fabricação do mosto, fermentação/maturação, filtração e envase e atuar em projeto de fabricação de cerveja, de acordo com as normas e legislações sanitárias, ambientais, de saúde, higiene e segurança do trabalho e da qualidade.',
+      campo: 'Cervejarias de micro a grande porte, laboratórios de análises de bebidas, indústrias de enzimas, empresas que utilizam processos de fermentação alcoólica e serviços de suporte técnico ligados à comercialização e análise de bebidas.',
+      rec: 'O Brasil é o 3º maior fabricante de cerveja do mundo, e a expansão de microcervejarias e indústrias artesanais tem criado um mercado promissor e de grandes oportunidades. O diploma do SENAI é amplamente reconhecido por formar profissionais qualificados para atuar na produção, laboratório e supervisão de qualidade, ampliando a empregabilidade e preparando o aluno para a continuidade dos estudos em cursos superiores como Ciência e Tecnologia de Alimentos, Engenharia de Bioprocessos e Engenharia Química.',
+      mods: [
+        [
+          'Módulo Básico',
+          240,
+          ['Comunicação e informação · 20h', 'Princípios de segurança dos alimentos · 60h', 'Princípios de ciência dos alimentos · 80h', 'Princípios de tecnologia dos alimentos · 80h']
+        ],
+        [
+          'Específico Profissional I',
+          160,
+          ['Segurança dos alimentos · 60h', 'Planejamento e controle da produção · 100h']
+        ],
+        [
+          'Específico Profissional II',
+          400,
+          ['Industrialização de cervejas · 400h']
+        ],
+        [
+          'Específico Profissional III',
+          400,
+          ['Análise de cervejas · 200h', 'Desenvolvimento de projetos · 200h']
+        ]
+      ]
+    },
+    'Instrumentação Industrial': {
+      video: 'p32386518',
+      obj: 'No curso Técnico em Instrumentação Industrial você aprende a desenvolver, implementar e manter sistemas de instrumentação e controle de processos industriais, seguindo procedimentos e Normas Técnicas, de Qualidade, Segurança, Saúde e Sustentabilidade.',
+      campo: 'Indústrias em geral, laboratórios de calibração, assistência técnica especializada, empresas prestadoras de serviços, empresas de engenharia e plantas-piloto de pesquisa e desenvolvimento de sistemas de instrumentação.',
+      rec: 'A automação e o controle de processos são pilares fundamentais da Indústria 4.0, tornando a instrumentação uma área estratégica e com alta demanda por profissionais qualificados em tecnologias avançadas. O diploma do SENAI é amplamente reconhecido pelo mercado, ampliando a empregabilidade em diversos setores produtivos e preparando o profissional para a continuidade dos estudos em cursos superiores como Engenharia de Controle e Automação, Engenharia Mecatrônica, Engenharia Elétrica e Tecnologia em Automação Industrial.',
+      mods: [
+        [
+          'Módulo Básico',
+          112,
+          ['Introdução ao Desenvolvimento de Projetos · 12h', 'Sustentabilidade nos Processos Industriais · 8h', 'Introdução a Tecnologia da Informação e Comunicação · 40h', 'Introdução a Indústria 4.0 · 24h', 'Saúde e Segurança no Trabalho · 12h', 'Introdução a Qualidade e Produtividade · 16h']
+        ],
+        [
+          'Módulo Introdutório',
+          300,
+          ['Comunicação e Informática Aplicada · 40h', 'Fundamentos da Eletroeletrônica · 100h', 'Fundamentos de Instrumentação · 100h', 'Desenho Técnico Aplicado à Sistemas Automatizados · 60h']
+        ],
+        [
+          'Específico Profissional I',
+          388,
+          ['Medição e Controle de Variáveis de Processos Industriais · 128h', 'Gestão dos Processos de Implementação dos Sistemas de Instrumentação e Controle · 60h', 'Sistemas de Instrumentação Analítica · 60h', 'Sistemas Instrumentados de Segurança (SIS) · 80h', 'Comissionamento de Sistemas de Instrumentação e Controle · 60h']
+        ],
+        [
+          'Específico Profissional II',
+          140,
+          ['Manutenção de Sistemas de Instrumentação e Controle · 80h', 'Planejamento e Controle da Manutenção · 60h']
+        ],
+        [
+          'Específico Profissional III',
+          260,
+          ['Projetos de Sistemas de Medição e Controle de Variáveis · 100h', 'Projetos de Sistemas Instrumentados de Segurança (SIS) · 60h', 'Desenvolvimento de Projeto Integrador · 100h']
+        ]
+      ]
+    },
+    'Modelagem do Vestuário': {
+      video: 'p16938947',
+      obj: 'No curso Técnico em Modelagem do Vestuário você aprende a desenvolver a modelagem manual e informatizada de produtos do vestuário e supervisionar o setor de modelagem e pilotagem, seguindo padrões de qualidade, produtividade e sustentabilidade da empresa, normas técnicas e regulamentadoras aplicáveis à ocupação.',
+      campo: 'Indústrias do vestuário e confecções, além de atuar de forma autônoma como modelista de roupas, consultor em modelagem, modelista de roupas 3D e coordenador do setor de modelagem.',
+      rec: 'A indústria da moda e do vestuário é um setor dinâmico que demanda cada vez mais profissionais atualizados com novas tecnologias (como softwares CAD e modelagem 3D) para garantir a precisão, a otimização de recursos e a qualidade dos produtos. O diploma do SENAI é amplamente reconhecido pelo mercado, ampliando as oportunidades de empregabilidade em indústrias e ateliês, e preparando o profissional para a continuidade dos estudos em cursos superiores como Design de Moda, Figurino e Indumentária e Produção do Vestuário.',
+      mods: [
+        [
+          'Módulo Básico',
+          112,
+          ['Saúde e Segurança no Trabalho · 12h', 'Introdução a Indústria 4.0 · 24h', 'Introdução a Tecnologia da Informação e Comunicação · 40h', 'Introdução a Qualidade e Produtividade · 16h', 'Introdução ao Desenvolvimento de Projetos · 12h', 'Sustentabilidade nos processos industriais · 8h']
+        ],
+        [
+          'Módulo Introdutório',
+          210,
+          ['Fundamentos da Confecção do Vestuário · 80h', 'Fundamentos da Moda · 40h', 'Processo de Costura Industrial · 90h']
+        ],
+        [
+          'Específico Profissional I',
+          388,
+          ['Modelagem Tridimensional Industrial do Vestuário · 60h', 'Desenvolvimento de Bases de Modelagem · 60h', 'Modelagem Plana Industrial do Vestuário em Tecido Plano · 108h', 'Modelagem Plana Industrial do Vestuário em Tecido de Malha · 80h', 'Prototipagem de Produtos do Vestuário · 80h']
+        ],
+        [
+          'Específico Profissional II',
+          290,
+          ['Modelagem Informatizada de Produtos do Vestuário · 110h', 'Gestão de Equipes do Setor de Modelagem · 40h', 'Gestão dos Processos de Modelagem · 60h', 'Desenvolvimento de Projetos · 80h']
+        ]
+      ]
+    },
+    'Design Gráfico': {
+      video: 'p38533949',
+      obj: 'No curso Técnico em Design Gráfico você aprende a coordenar e Executar projetos de comunicação visual de mídias impressas e digitais seguindo padrões e normas técnicas, referentes à propriedade intelectual, acessibilidade, usabilidade e sustentabilidade.',
+      campo: 'Escritórios de design, agências de publicidade, produtoras de vídeo e animação, desenvolvedoras de games e empresas de marketing digital, além da atuação em projetos envolvendo aplicativos, mídias sociais, cross media e modelagem 3D.',
+      rec: 'A comunicação visual é um elemento estratégico na era da informação e da digitalização, exigindo profissionais criativos e altamente capacitados para atuar em diversas plataformas. O diploma do SENAI é amplamente reconhecido no mercado, abrindo portas em agências, estúdios de design e empresas de tecnologia, além de preparar o profissional para a continuidade dos estudos no ensino superior em áreas como Design, Animação, Direção de Arte e Produção Multimídia.',
+      mods: [
+        [
+          'Módulo Básico',
+          112,
+          ['Introdução ao Desenvolvimento de Projetos · 12h', 'Introdução a Tecnologia da Informação e Comunicação · 40h', 'Saúde e Segurança no Trabalho · 12h', 'Introdução a Qualidade e Produtividade · 16h', 'Introdução a Indústria 4.0 · 24h', 'Sustentabilidade nos processos industriais · 8h']
+        ],
+        [
+          'Módulo Introdutório',
+          116,
+          ['Fundamentos da Teoria da Cor · 32h', 'História do Design Gráfico · 28h', 'Fundamentos de Desenho e Percepção Visual · 32h', 'Fundamentos de Fotografia Digital e de Semiótica · 24h']
+        ],
+        [
+          'Específico Profissional I',
+          184,
+          ['Tipografia · 44h', 'Produção Gráfica · 32h', 'Projetos de Mídias Digitais e Impressas · 32h', 'Imagem Digital · 76h']
+        ],
+        [
+          'Específico Profissional II',
+          408,
+          ['Design de Embalagens · 84h', 'Design Editorial · 84h', 'Projeto de Identidade Visual · 84h', 'Design Promocional, Institucional e Sinalização · 76h', 'Motion Design · 80h']
+        ],
+        [
+          'Específico Profissional III',
+          180,
+          ['Design de Interfaces · 80h', 'Desenvolvimento de Projetos · 100h']
         ]
       ]
     }

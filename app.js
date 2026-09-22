@@ -3,6 +3,11 @@
    ══════════════════════════════════════════════════════════════════════ */
 const palco = document.getElementById('palco');
 const slides = [...document.querySelectorAll('.slide')];
+/* Tela se chama pelo id, não pelo número. Quando "Soluções" entrou antes
+   do learning map, todo `ir(4)` do projeto passou a abrir a tela errada —
+   o número de uma tela muda cada vez que outra entra antes dela; o id não. */
+const telaDe = id => slides.findIndex(s => s.id === id);
+window.irPara = id => ir(telaDe(id));
 /* ícone da área = o da ilha que reúne aquela área */
 const iconeDaArea = a => (ILHAS.find(i => i.areas.includes(a)) || {}).icone || 'gestao';
 const foto = slug => `assets/cursos/${slug}.jpg`;
@@ -17,6 +22,13 @@ function escalar() {
   palco.style.transform = `translate(-50%,-50%) scale(${s})`;
   palco.style.setProperty('--bgw', Math.ceil(innerWidth / s) + 'px');
   palco.style.setProperty('--bgh', Math.ceil(innerHeight / s) + 'px');
+  /* --leg: compensação de legibilidade (pedido do cliente, 21/09). O palco
+     inteiro encolhe junto com a janela, então num notebook de 1280px o texto
+     das caixas chega à tela com dois terços do tamanho. Aqui os rótulos e as
+     notas crescem NO PALCO na medida inversa, até 1,35×, e voltam ao normal
+     quando a tela é grande. Só o texto pequeno usa isso: título e cartão
+     seguem a escala, senão a composição se desmancha. */
+  palco.style.setProperty('--leg', Math.min(1.35, Math.max(1, .82 / s)).toFixed(3));
 }
 addEventListener('resize', escalar); escalar();
 
@@ -34,6 +46,7 @@ function ir(i) {
   i = Math.max(0, Math.min(slides.length - 1, i));
   if (i === atual || trocando) return;
   trocando = true;
+  if (window.fecharHub) fecharHub();              // trocar de tela fecha o hub aberto
   const saindo = slides[atual];
   saindo.classList.add('saindo');                 // desmonta a tela atual
 
@@ -56,6 +69,9 @@ function ir(i) {
 }
 
 addEventListener('keydown', e => {
+  /* com um hub aberto, seta e espaço andam entre as sub-telas dele e Esc
+     volta ao hub — o trilho da apresentação só volta a andar fora dele */
+  if (window.hubTecla && hubTecla(e)) return;
   if (e.key === 'Escape' && document.getElementById('prateleira').classList.contains('aberta')) {
     fecharPrateleira(); return;                 // Esc sobe um nível, não sai da tela
   }
@@ -92,11 +108,12 @@ function rolavel(alvo, dir) {
 
    Sai-se daqui clicando: numa categoria que abre, no Voltar, ou no sumário
    do rodapé — nunca por acidente. */
-const TELAS_TRAVADAS = new Set([4, 5]);
+const TELAS_TRAVADAS = new Set([telaDe('s5'), telaDe('s6')]);
 let trava = 0;
 addEventListener('wheel', e => {
   const t = Date.now(); if (t - trava < 900 || Math.abs(e.deltaY) < 18) return;
   if (TELAS_TRAVADAS.has(atual)) return;
+  if (window.hubAberto && hubAberto()) return;    // a roda não sai de dentro do hub
   const dir = e.deltaY > 0 ? 1 : -1;
   if (rolavel(e.target, dir)) return;
   trava = t; ir(atual + dir);
@@ -106,6 +123,11 @@ addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; tAlvo = e.targ
 addEventListener('touchend', e => {
   if (ty0 === null) return;
   const d = ty0 - e.changedTouches[0].clientY;
+  /* dentro do hub o gesto anda entre as sub-telas, não entre as telas */
+  if (window.hubAberto && hubAberto()) {
+    if (Math.abs(d) > 60) hubPasso(d > 0 ? 1 : -1);
+    ty0 = null; tAlvo = null; return;
+  }
   if (!TELAS_TRAVADAS.has(atual) && Math.abs(d) > 60 && !rolavel(tAlvo, d > 0 ? 1 : -1))
     ir(atual + (d > 0 ? 1 : -1));
   ty0 = null; tAlvo = null;
@@ -247,14 +269,19 @@ if (painelVids && typeof PAINEL02 !== 'undefined') {
 /* ══════════ contadores ══════════ */
 function contadores(sl) {
   sl.querySelectorAll('[data-num]').forEach(el => {
-    const bruto = el.dataset.num, suf = el.dataset.suf || '', dec = bruto.includes(',') ? 1 : 0,
+    /* `pre` existe por causa do "+ de 130 mil matrículas": o cliente
+       escreveu o número com um mais na frente, e sem prefixo a única saída
+       seria jogar o sinal no rótulo de baixo, onde ele deixaria de fazer
+       parte do número. */
+    const bruto = el.dataset.num, suf = el.dataset.suf || '', pre = el.dataset.pre || '',
+          dec = bruto.includes(',') ? 1 : 0,
           zero = bruto.startsWith('0') && bruto.length > 1, alvo = parseFloat(bruto.replace(',', '.'));
     const t0 = performance.now();
     (function tick(t) {
       const p = Math.min((t - t0) / 1300, 1), e = 1 - Math.pow(1 - p, 3);
       let s = (alvo * e).toFixed(dec).replace('.', ',');
       if (zero && p === 1) s = '0' + s;
-      el.textContent = s + suf;
+      el.textContent = pre + s + suf;
       if (p < 1) requestAnimationFrame(tick);
     })(t0);
   });
@@ -470,7 +497,7 @@ function voltarDoCurso() {
   const { cat } = origemCurso;
   const il = ILHAS.find(x => x.id === cat);
   if (il && il.pag !== pagAtual) { pagAtual = il.pag; pintarPagina(false); }
-  ir(4);
+  ir(telaDe('s5'));
   setTimeout(() => abrirPrateleira(cat), 480);
 }
 
@@ -522,7 +549,7 @@ function abrirCurso(nome, origem) {
   document.getElementById('dCH').innerHTML =
     `<em>Carga horária</em><span>${c[2].toLocaleString('pt-BR')}<i>h</i></span>`;
   pintarDetalhe(c, d);
-  ir(5);
+  ir(telaDe('s6'));
 }
 function pintarDetalhe(c, d) {
   const $ = id => document.getElementById(id);

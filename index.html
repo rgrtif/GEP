@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Firjan SENAI · Oferta de Títulos PROPAG 2026.2</title>
+<title>Firjan SENAI · Portfólio de Cursos Técnicos</title>
 
 <link rel="stylesheet" href="assets/fonte/manrope.css">
 <style>
@@ -79,7 +79,14 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;tex
 .bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
 .dark .bg video{filter:saturate(.68) contrast(1.1) brightness(.55)}
 .veu{position:absolute;inset:0;pointer-events:none}
+/* A terceira camada é o pé da esquerda, e ela entrou quando a capa passou
+   a ter quatro métricas. As duas primeiras já caíam na área protegida; a
+   terceira e a quarta avançavam para onde o véu diagonal já tinha aberto
+   para o vídeo aparecer. Um degradê que sobe só do canto inferior esquerdo
+   devolve o fundo aos rótulos sem escurecer a cena toda — que é o que o
+   cliente pediu para preservar. */
 .dark .veu{background:
+  linear-gradient(20deg,rgba(11,20,24,.92) 0%,rgba(11,20,24,.62) 22%,rgba(11,20,24,0) 42%),
   linear-gradient(100deg,rgba(11,20,24,.95) 0%,rgba(11,20,24,.78) 36%,rgba(11,20,24,.24) 64%,rgba(11,20,24,.6) 100%),
   radial-gradient(130% 95% at 74% 42%,transparent 26%,rgba(11,20,24,.88) 100%)}
 .grao{position:absolute;inset:0;pointer-events:none;opacity:.13;mix-blend-mode:overlay;
@@ -127,6 +134,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;tex
 /* logo é SVG puro (7 paths): escala sem perder nada. Na capa vai grande,
    limitado só pelo respiro até o olho do título; nas outras vira assinatura. */
 .marca{height:6cqh;transition:height .5s var(--ease),transform .5s var(--ease)}
+/* dentro dos hubs o logotipo cai sobre as janelas claras das cenas, e o
+   "SENAI" em ciano sumia: um halo do papel, sem caixa, devolve o contraste */
+#palco[data-hub] .marca{filter:drop-shadow(0 0 3px rgba(246,250,251,.95)) drop-shadow(0 0 10px rgba(246,250,251,.9))}
+#palco[data-hub]:has(.hubPainel[data-escuro]) .marca{filter:none}
 /* na capa a marca é protagonista e desce um pouco para respirar do topo */
 #palco:has(#s1.on) .marca{height:11cqh;transform:translateY(5.4cqh)}
 .tag{pointer-events:auto;font-size:.8cqw;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
@@ -179,7 +190,10 @@ h2{font-size:3.3cqw;line-height:1.06;font-weight:800;letter-spacing:-.03em;color
   color:var(--ciano)}
 .capaOferta::before{content:"";width:2.4cqw;height:2px;background:currentColor;flex:none}
 .dark .capaOferta{color:var(--ciano)}
-.metricas{display:flex;gap:3cqw;margin-top:1.6cqh;flex-wrap:wrap}
+/* 2cqw, e não 3: a capa passou de três métricas para quatro, e com o vão
+   antigo a última terminava a 65% da tela — em cima da parte detalhada do
+   vídeo, onde o rótulo em maiúsculas fininhas simplesmente sumia. */
+.metricas{display:flex;gap:2cqw;margin-top:1.6cqh;flex-wrap:wrap}
 .m{position:relative;padding-left:1.05cqw}
 .m::before{content:"";position:absolute;left:0;top:.3cqh;bottom:.9cqh;width:3px;border-radius:2px;background:var(--ciano)}
 .m span{display:block;font-size:2.9cqw;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--profundo);
@@ -224,15 +238,21 @@ h2{font-size:3.3cqw;line-height:1.06;font-weight:800;letter-spacing:-.03em;color
 /* na capa, "84 anos" ganha peso dentro da própria frase */
 #s1 .lead .realce{font-size:1.6cqw;font-weight:800;color:var(--ciano);letter-spacing:-.015em}
 
-/* ── capa: PROPAG como título ──
-   PROPAG é o nome do programa, então é ele que ancora a capa. A frase que
-   era título desce a subtítulo: continua sendo a promessa, mas subordinada
-   ao nome. O ano vira uma marca menor, alinhada ao topo das letras, para
-   não roubar peso da palavra. */
-.capaPropag{display:flex;align-items:flex-start;gap:1.1cqw;
-  font-size:8.4cqw;line-height:.86;font-weight:800;letter-spacing:-.045em}
-.capaPropag em{font-style:normal;font-size:1.5cqw;font-weight:700;letter-spacing:.1em;
-  margin-top:.9cqh;padding:.5cqh .8cqw;border-radius:999px;
+/* ── capa: a frase como título ──
+   O PROPAG saiu quando o escopo virou o portfólio inteiro, e a promessa
+   voltou a ancorar a capa, como era antes dele. O corpo caiu de 8,4cqw
+   para 4,6cqw pelo motivo óbvio: aquilo dimensionava uma palavra de seis
+   letras, e agora são duas frases em duas linhas. O ano continua alinhado
+   ao topo, sem roubar peso do texto. */
+/* BLOCO, e não flex. Com flex o <br> não quebra nada — os filhos ficam
+   lado a lado —, e foi assim que "A gente forma." atropelou a pílula do
+   ano na primeira tentativa. Em bloco a quebra funciona e a pílula segue
+   o texto como um elemento em linha. */
+.capaPropag{display:block;font-size:4.6cqw;line-height:1.06;
+  font-weight:800;letter-spacing:-.03em}
+.capaPropag em{display:inline-block;vertical-align:.9em;
+  font-style:normal;font-size:1.5cqw;font-weight:700;letter-spacing:.1em;
+  margin-left:1cqw;padding:.5cqh .8cqw;border-radius:999px;
   background:rgba(0,179,236,.16);color:var(--ciano);white-space:nowrap}
 .dark .capaPropag{color:#fff}
 .capaSub{margin-top:1.6cqh;font-size:2.5cqw;line-height:1.12;font-weight:800;
@@ -387,81 +407,96 @@ h2{font-size:3.3cqw;line-height:1.06;font-weight:800;letter-spacing:-.03em;color
    baixo do logotipo do chrome, que ocupa o canto superior esquerdo. Na
    versão de duas colunas isso não acontecia porque a coluna de texto
    começava mais abaixo. */
-#s4 .wrap{display:flex;flex-direction:column;gap:1.8cqh;
-  padding:10cqh 4.4cqw 7.5cqh}
-#s4 .fazTopo{display:grid;grid-template-columns:auto minmax(0,1fr) auto;
-  gap:2.6cqw;align-items:end}
-#s4 .fazTopo h2{font-size:2.7cqw;margin-top:.8cqh}
-#s4 .fazTopo .lead{font-size:.95cqw;max-width:34cqw;padding-bottom:.4cqh}
+/* Setembro: a tela tinha 42 caixas do mesmo peso (seis pílulas, a pílula
+   das áreas, três cartões de submenu e 32 cartões de área) e nada
+   liderava. A reunião de 03/09 define o papel dela: é a primeira das
+   quatro telas de "O que fazemos" (o catálogo), e dela se abrem
+   Modalidades, Espaços de inovação e Recursos educacionais.
 
-/* O total: o número que os seis somam, no maior corpo da tela. É o dado
-   que o cliente quer que se leia de longe. */
-#s4 .fazTotal{display:flex;align-items:center;gap:.9cqw;white-space:nowrap}
-#s4 .fazTotal span{font-size:5.2cqw;font-weight:800;line-height:.88;
-  color:var(--azul);font-variant-numeric:tabular-nums;letter-spacing:-.035em}
-#s4 .fazTotal em{font-style:normal;font-size:.92cqw;font-weight:800;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--tinta2);line-height:1.3}
-/* Eram dois números lado a lado; agora são os seis tipos de curso do quadro
-   do cliente. Em fila única eles não cabem nos 21cqw da coluna, então viram
-   uma grade 2×3 — e o número encolhe para 1.8cqw, que é o tamanho em que
-   "331" e "Especialização" convivem sem que a legenda quebre em três linhas.
-   A régua da esquerda substitui o espaço que separava os dois cartões: com
-   seis itens, o alinhamento precisa de uma borda para ser lido como lista. */
-/* As pílulas dos seis tipos de curso, no desenho do PPT do cliente:
-   número e rótulo LADO A LADO, com o número no dobro do corpo do rótulo.
-   Antes o número ficava em cima e o rótulo embaixo, ambos pequenos — e o
-   rótulo trazia só a última palavra ("Técnicos"), que sozinha não diz do
-   que aquele 29 é contagem. */
-#s4 .fazNums{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.9cqw}
-#s4 .fazNums .c{display:flex;align-items:center;gap:.7cqw;
-  background:rgba(255,255,255,.86);border:1px solid rgba(24,87,126,.14);
-  border-radius:16px;padding:1.5cqh 1.1cqw;
-  box-shadow:0 10px 22px -14px rgba(24,87,126,.4)}
-#s4 .fazNums .c span{font-size:2.5cqw;font-weight:800;line-height:.9;
+   Três faixas, em ordem de leitura:
+     1 · título, texto de apoio e o total, que se lê de longe;
+     2 · os seis tipos numa barra só: o padrão número + rótulo que o
+         cliente aprovou, numa peça única com divisória fina, em vez de
+         seis caixas soltas disputando atenção;
+     3 · duas colunas: as três portas do hub, grandes e com imagem (é para
+         elas que o apresentador aponta), e as 32 áreas num painel só,
+         como índice lido em coluna, sob o "32 Áreas tecnológicas" no
+         mesmo padrão número + rótulo, como o cliente anotou no slide 4. */
+/* padding-top de 10cqh tira o kicker de baixo do logotipo do chrome */
+#s4 .wrap{display:flex;flex-direction:column;gap:2.4cqh;padding:10cqh 4.4cqw 7.5cqh}
+
+/* ── 1 · topo ── */
+#s4 .fazTopo{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3cqw;align-items:end}
+#s4 .fazTopo h2{font-size:3.3cqw}
+#s4 .fazTopo .lead{margin-top:1.4cqh;font-size:1.05cqw;max-width:40cqw;text-wrap:balance}
+/* o total: o número que os seis somam, no maior corpo da tela */
+#s4 .fazTotal{display:flex;align-items:center;gap:1cqw;white-space:nowrap;padding-bottom:.4cqh}
+#s4 .fazTotal span{font-size:6cqw;font-weight:800;line-height:.86;color:var(--azul);
+  font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+#s4 .fazTotal em{font-style:normal;font-size:.95cqw;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--tinta2);line-height:1.3}
+
+/* título e texto de apoio lado a lado, como no slide 4 */
+#s4 .fazTopo>div:first-child{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:3cqw;align-items:end}
+#s4 .fazTopo>div:first-child .kicker{grid-column:1 / -1}
+#s4 .fazTopo>div:first-child .lead{margin:0 0 .6cqh;max-width:32cqw}
+
+/* ── 2 · os seis tipos: cartões separados, como no slide 4 ── */
+#s4 .fazNums{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1cqw}
+#s4 .fazNums .c{display:flex;align-items:center;gap:.8cqw;padding:1.7cqh 1.3cqw;
+  background:rgba(255,255,255,.9);border:1px solid rgba(24,87,126,.12);border-radius:16px;
+  box-shadow:0 12px 26px -20px rgba(24,87,126,.45)}
+#s4 .fazNums .c span{font-size:2.8cqw;font-weight:800;line-height:.9;
   color:var(--azul);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
-#s4 .fazNums .c small{font-size:.72cqw;font-weight:700;line-height:1.24;
+#s4 .fazNums .c small{font-size:.76cqw;font-weight:700;line-height:1.25;
   letter-spacing:.02em;color:var(--tinta2)}
 
-/* rótulo da grade: separa a contagem de CURSOS da contagem de ÁREAS, que
-   é a confusão que a tela antiga criava ao misturar tudo numa coluna */
-#s4 .fazAreas{display:flex;align-items:baseline;gap:.6cqw;margin-top:.6cqh;
-  font-size:1cqw;font-weight:700;letter-spacing:.02em;color:var(--tinta2)}
-#s4 .fazAreas b{font-size:2cqw;font-weight:800;color:var(--profundo);
-  font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+/* ── 3 · abas e painel ──
+   Abas no desenho das abas de navegador (o exemplo do cliente): cantos de
+   cima arredondados, a ativa com a mesma cor do painel e colada nele. A
+   primeira mostra as áreas; as outras abrem o hub. flex:1 + min-height:0:
+   o quadro ocupa o que sobra acima do rodapé. */
+:is(#s4,#sSol) .fazQuadro{flex:1;min-height:0;display:flex;flex-direction:column}
+:is(#s4,#sSol) .fazAbas{display:flex;align-items:flex-end;gap:.35cqw;padding-left:1.2cqw;position:relative;z-index:2}
+:is(#s4,#sSol) .fazAba{position:relative;display:flex;align-items:center;gap:.7cqw;height:5.4cqh;padding:0 1.3cqw 0 .9cqw;
+  border-radius:14px 14px 0 0;background:#F6FAFC;border:1px solid #E6EEF3;border-bottom:0;
+  font-size:.9cqw;font-weight:700;color:var(--profundo);white-space:nowrap;cursor:pointer;
+  transition:background .2s var(--ease),color .2s}
+/* hover (18/09): a aba sobe um pouco, o nome ganha o azul e peso, e um
+   traço ciano acende embaixo — deixa claro que a aba é clicável */
+/* 21/09: aba fechada em azul com o nome em branco, a ativa segue clara —
+   o contraste entre as duas é o que diz qual está aberta */
+#s4 .fazAba:not(.on){background:var(--azul);border-color:var(--azul);color:#fff;
+  transition:background .2s var(--ease),color .2s,transform .2s var(--ease),box-shadow .2s}
+#s4 .fazAba:not(.on)::after{content:"";position:absolute;left:18%;right:18%;bottom:6px;height:3px;border-radius:3px;
+  background:#fff;transform:scaleX(0);transition:transform .25s var(--ease)}
+/* no hover a aba clareia para o ciano e sobe: continua azul, mas responde */
+#s4 .fazAba:hover:not(.on){background:var(--ciano);border-color:var(--ciano);color:#fff;transform:translateY(-3px);
+  box-shadow:0 -8px 20px -12px rgba(24,87,126,.7);text-shadow:0 0 .5px currentColor}
+#s4 .fazAba:hover:not(.on)::after{transform:scaleX(1)}
+:is(#s4,#sSol) .fazAba img{width:2cqw;height:2cqw;border-radius:6px;object-fit:cover;flex:none}
+:is(#s4,#sSol) .fazAba .fazAbaIr{font-size:1.1cqw;color:var(--azul);transition:transform .2s var(--ease)}
+:is(#s4,#sSol) .fazAba:hover .fazAbaIr{transform:translateX(3px)}
+:is(#s4,#sSol) .fazAba.on{height:6.2cqh;background:#FBFDFE;border-color:rgba(24,87,126,.14);cursor:default;
+  box-shadow:0 -10px 22px -18px rgba(24,87,126,.5)}
+/* a ativa cobre a borda de cima do painel: é o que a faz parecer grudada nele */
+:is(#s4,#sSol) .fazAba.on::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;background:#FBFDFE}
+:is(#s4,#sSol) .fazAbaNum{font-size:1.5cqw;font-weight:800;line-height:1;color:var(--azul);letter-spacing:-.02em}
 
-/* 18 áreas numa grade de 6: o cartão é pequeno, então o ícone é que carrega
-   o reconhecimento — daí ele vir grande e o texto abaixo, e não ao lado.
-   minmax(0,1fr) é obrigatório: com o 1fr puro, o mínimo de conteúdo de
-   nomes longos ("Gráfica, Mídias Impressas e Digitais") estoura a coluna e
-   a grade inteira vaza para fora da tela. */
-/* 8 colunas x 4 linhas — a MESMA grade do quadro institucional do cliente,
-   de propósito: quem conhece o material da Firjan reconhece o arranjo. Com
-   32 áreas em vez de 18, o resumo de cada uma saiu; o que sustenta a leitura
-   agora é o par ícone + nome, que é como o quadro original também funciona. */
-/* flex:1 + min-height:0 faz a grade ocupar EXATAMENTE o que sobra depois
-   do cabeçalho e das pílulas, sem empurrar a última fileira para cima do
-   rodapé. Sem o min-height:0 o conteúdo define o tamanho e a grade
-   transborda em silêncio. */
-#s4 .fazGrade{flex:1;min-height:0;
-  display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
-  /* auto-rows em vez de 1fr, com a grade centrada: os cartões param de
-     esticar para preencher a altura e o que sobra vira respiro em volta,
-     que foi o pedido. */
-  grid-auto-rows:minmax(0,11.6cqh);gap:.85cqw .55cqw;align-content:center}
-#s4 .fz{display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:.8cqh;padding:1.1cqh .5cqw;text-align:center;
-  border-radius:14px;background:rgba(255,255,255,.85);
-  border:1px solid rgba(24,87,126,.13);backdrop-filter:blur(8px);
-  box-shadow:0 10px 22px -12px rgba(24,87,126,.42);transition:.26s var(--ease)}
-#s4 .fz:hover{background:#fff;transform:translateY(-3px);
-  border-color:rgba(0,179,236,.5);box-shadow:0 16px 30px -14px rgba(24,87,126,.5)}
-#s4 .fz img{width:3.5cqw;height:3.5cqw;flex:none}
-#s4 .fz b{font-size:.8cqw;font-weight:800;line-height:1.22;color:var(--profundo);
-  letter-spacing:-.005em;text-wrap:balance}
-/* Entram em cascata, seguindo a leitura. Usa surgePainel e NÃO surgeIlha:
-   a segunda termina em translate(-50%,-50%) porque foi escrita para os
-   chips do mapa, que são ancorados pelo centro — num item de grade isso
-   desloca o cartão em meio cartão e desalinha a grade inteira. */
+#s4 .fazAreas{flex:1;min-height:0;display:flex;padding:1.8cqh 1.2cqw;
+  background:#FBFDFE;border:1px solid rgba(24,87,126,.14);border-radius:0 20px 20px 20px;
+  box-shadow:0 18px 36px -26px rgba(24,87,126,.45)}
+/* 8 × 4, em ordem alfabética lida em linha, como no slide 4 */
+#s4 .fazGrade{flex:1;min-height:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
+  grid-template-rows:repeat(4,minmax(0,1fr));gap:1cqh .7cqw}
+#s4 .fz{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1cqh;min-width:0;
+  padding:.6cqh .5cqw;text-align:center;background:#fff;border:1px solid rgba(24,87,126,.1);border-radius:14px;
+  box-shadow:0 8px 18px -16px rgba(24,87,126,.5);transition:transform .2s var(--ease),border-color .2s}
+#s4 .fz:hover{transform:translateY(-2px);border-color:rgba(0,179,236,.45)}
+#s4 .fz img{width:3.2cqw;height:3.2cqw;flex:none}
+#s4 .fz b{font-size:.78cqw;font-weight:700;line-height:1.2;color:var(--profundo);text-wrap:balance}
+/* entram em cascata, seguindo a leitura; surgePainel e NÃO surgeIlha, que
+   termina em translate(-50%,-50%) e desalinharia a grade */
 #s4 .fz{animation:surgePainel .5s var(--ease) both;animation-delay:var(--d)}
 
 /* ══════════════════════════════════════════════════════════════
@@ -717,10 +752,10 @@ h2{font-size:3.3cqw;line-height:1.06;font-weight:800;letter-spacing:-.03em;color
 .ilhaIcone{display:grid;place-items:center;width:50px;height:50px;flex:none}
 .ilhaIcone img{width:100%;height:100%}
 /* o olho "Categoria" e o badge "N títulos" dizem o que a caixa é e o que ela abre */
-.ilhaTxt i{display:block;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.18em;
+.ilhaTxt i{display:block;font-style:normal;font-size:calc(10.5px * var(--leg,1));font-weight:800;letter-spacing:.18em;
   text-transform:uppercase;color:var(--azul);opacity:.85;margin-bottom:3px}
-.ilhaTxt b{display:block;font-size:18.5px;font-weight:800;color:var(--profundo);line-height:1.12;letter-spacing:-.01em}
-.ilhaTxt span{display:block;font-size:14px;font-weight:700;color:var(--tinta2);margin-top:3px}
+.ilhaTxt b{display:block;font-size:calc(18.5px * var(--leg,1));font-weight:800;color:var(--profundo);line-height:1.12;letter-spacing:-.01em}
+.ilhaTxt span{display:block;font-size:calc(14px * var(--leg,1));font-weight:700;color:var(--tinta2);margin-top:3px}
 .ilhaNum{display:grid;place-items:center;min-width:31px;height:31px;padding:0 8px;border-radius:999px;
   font-size:15px;font-weight:800;color:var(--azul);background:rgba(0,179,236,.13);
   border:1px solid rgba(0,179,236,.32);margin-left:5px}
@@ -965,6 +1000,472 @@ h2{font-size:3.3cqw;line-height:1.06;font-weight:800;letter-spacing:-.03em;color
   background:var(--claro);border:1px solid rgba(0,130,173,.18);color:var(--profundo);line-height:1.3}
 .aviso{margin-top:1.2cqh;font-size:1cqw;color:var(--tinta);line-height:1.55}
 
+/* ══════════════════════════════════════════════════════════════
+   HUBS · O que fazemos (04) e Soluções (05) — ver hubs.js
+   ══════════════════════════════════════════════════════════════ */
+
+
+/* ── cartão de entrada: abre o painel na primeira sub-tela daquele tema ── */
+.hubCartao{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:1cqw;
+  padding:.8cqh 1cqw .8cqh .8cqh;border-radius:16px;background:rgba(255,255,255,.86);
+  border:1px solid rgba(24,87,126,.14);box-shadow:0 10px 22px -14px rgba(24,87,126,.4);
+  transition:.26s var(--ease)}
+.hubCartao:hover{background:#fff;transform:translateY(-3px);border-color:rgba(0,179,236,.5);
+  box-shadow:0 16px 30px -14px rgba(24,87,126,.5)}
+.hcArte{display:block;width:5.6cqw;aspect-ratio:16/10;border-radius:10px;overflow:hidden;background:var(--claro)}
+.hcArte img{width:100%;height:100%;object-fit:cover}
+/* peça de infográfico: PNG recortado, inteiro sobre o claro */
+.hcArte.peca img{object-fit:contain;padding:3px}
+.hcTxt b{display:block;font-size:.98cqw;font-weight:800;line-height:1.2;color:var(--profundo);text-wrap:balance}
+.hcTxt small{display:block;margin-top:.35cqh;font-size:.72cqw;font-weight:600;line-height:1.35;color:var(--tinta2);text-wrap:balance}
+.hcSeta{font-size:1.7cqw;font-weight:600;line-height:1;color:var(--azul);transition:transform .26s var(--ease)}
+.hubCartao:hover .hcSeta{transform:translateX(4px)}
+
+/* ── tela 05 · Soluções: a abertura à esquerda, os cinco cartões à direita ── */
+/* tela 05: a ilustração cobre a janela; um véu claro nasce da esquerda só
+   o bastante para o cartão e as abas lerem sem caixa pesada */
+/* duas camadas da mesma arte: a desfocada cobre a janela, e a nítida entra
+   menor, presa à direita e com as bordas esmaecidas. Em tela cheia o
+   cenário ficava grande demais: o cartão cobria gente e o gráfico
+   encostava no rodapé. */
+#sSol .solFundo{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;
+  filter:blur(40px) brightness(1.08);opacity:.5}
+#sSol .solArte{position:absolute;right:0;top:50%;transform:translateY(-50%);width:min(78%,1500px);height:auto;
+  filter:contrast(1.05) saturate(1.04);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%),linear-gradient(0deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0,#000 16%),linear-gradient(0deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+  mask-composite:intersect}
+#sSol .solVeu{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(246,250,251,.9) 0%,rgba(246,250,251,.72) 28%,rgba(246,250,251,0) 52%),
+  linear-gradient(0deg,rgba(246,250,251,.85) 0%,rgba(246,250,251,0) 14%)}
+#sSol .wrap{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:3cqh;
+  padding:12cqh 4.4cqw 11cqh}
+#sSol .solCard{max-width:38cqw;padding:3.4cqh 2.2cqw 3.6cqh;border-radius:24px;
+  background:rgba(255,255,255,.86);border:1px solid rgba(24,87,126,.12);
+  box-shadow:0 22px 44px -28px rgba(24,87,126,.5);backdrop-filter:blur(14px)}
+#sSol .solCard h2{font-size:3.1cqw;text-wrap:balance}
+#sSol .solCard .lead{margin-top:2cqh;max-width:none;font-size:1cqw;line-height:1.6}
+#sSol .solCorpo{margin-top:1.2cqh;font-size:.88cqw;color:var(--tinta2)}
+/* abas soltas sobre a arte: só o nome, como o padrão das abas */
+#sSol .solAbas{display:flex;gap:.6cqw}
+#sSol .solDica{margin:0 0 -1.6cqh .6cqw;padding:.7cqh 1.1cqw .7cqh .8cqw;border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(6px)}
+#sSol .solAbas .fazAba{height:auto;padding:1.3cqh 1.3cqw;border:1px solid rgba(24,87,126,.14);border-radius:999px;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(10px);font-size:.95cqw;font-weight:700;
+  color:var(--profundo);box-shadow:0 10px 22px -18px rgba(24,87,126,.6)}
+#sSol .solAbas .fazAba:hover{background:var(--azul);border-color:var(--azul);color:#fff}
+
+/* ── tela 05 em modo mapa ──
+   Mesma linguagem do learning map (tela de cursos técnicos): a cena cobre a
+   janela, as ilhas estão desenhadas nela, e a interface só pousa fio e chip
+   em % do palco. O cartão encolhe para o canto de cima à esquerda e as abas
+   saem: quem navega agora são os chips. */
+#sSol .solMapaCena,#sSol .solMapaVeu,#sSol .solMapaUI{display:none}
+#sSol[data-mapa] :is(.solFundo,.solArte,.solVeu,.solAbas){display:none}
+#sSol[data-mapa] .solMapaCena{display:block;position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;filter:saturate(.9) contrast(1.03)}
+#sSol[data-mapa] .solMapaVeu{display:block;position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(0deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.8) 5%,rgba(255,255,255,0) 11%),
+  linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 10%),
+  linear-gradient(135deg,rgba(24,87,126,.34) 0%,rgba(24,87,126,.12) 5%,rgba(24,87,126,0) 11%)}
+#sSol[data-mapa] .solMapaUI{display:block;position:absolute;inset:0;z-index:6;pointer-events:none}
+#sSol .solIlhas{position:absolute;inset:0;z-index:30}
+#sSol .solIlhas .ilha{pointer-events:auto}
+#sSol .ilhaIcone svg{width:38px;height:38px;color:var(--azul)}
+/* chip compacto: nome curto na primeira linha e a frase de apoio quebrando
+   em duas — assim ele cabe entre as ilhas sem cobrir o que a cena mostra */
+#sSol .solIlhas .ilha{max-width:19cqw;white-space:normal;padding:12px 18px 12px 12px}
+#sSol .solIlhas .ilhaTxt span{line-height:1.3}
+#sSol[data-mapa] .wrap{justify-content:flex-start;gap:1.4cqh;padding:11.5cqh 4.4cqw 0}
+#sSol[data-mapa] .solCard{max-width:29cqw;padding:2.6cqh 1.8cqw 2.8cqh;border-radius:18px;
+  background:linear-gradient(140deg,rgba(255,255,255,.9),rgba(230,243,250,.72));
+  border:1px solid rgba(255,255,255,.95);backdrop-filter:blur(18px) saturate(1.3);
+  box-shadow:0 20px 42px -20px rgba(24,87,126,.6),inset 0 1px 0 rgba(255,255,255,.98)}
+#sSol[data-mapa] .solCard h2{font-size:2.1cqw;line-height:1.08}
+#sSol[data-mapa] .solCard .lead{margin-top:1.3cqh;font-size:.84cqw;line-height:1.5}
+#sSol[data-mapa] .solCorpo{margin-top:.8cqh;font-size:.78cqw}
+/* a dica desce para a faixa de baixo: no mapa, o piso logo abaixo do cartão
+   é onde mora o chip da Gestão de competências */
+#sSol[data-mapa] .solDica{position:absolute;left:4.4cqw;top:85.5cqh;margin:0}
+
+/* ── o painel ──
+   Enquanto ele está aberto o rodapé e a etiqueta saem: a navegação é a
+   do próprio painel, e os infográficos foram medidos sem rodapé — os
+   cartões de baixo ocupam justamente a faixa onde ele ficaria. */
+#palco[data-hub] .rodape,#palco[data-hub] .tag{opacity:0;pointer-events:none}
+.hubPainel{position:absolute;inset:0;z-index:30;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .45s var(--ease),visibility .45s}
+.hubPainel.aberto{opacity:1;visibility:visible;pointer-events:auto}
+.hubBg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:var(--bgw,1920px);height:var(--bgh,1080px);overflow:hidden;background:var(--papel)}
+.hbBorrao{position:absolute;inset:-4%;background-position:center;background-size:cover;
+  filter:blur(26px) saturate(.95) brightness(1.02);opacity:0;transition:opacity .5s var(--ease)}
+/* A cena nítida fica PRESA AO PALCO (1920×1080), porque os rótulos são
+   medidos em % do palco. Cobrir a janela (17/09) fazia a cena ampliar numa
+   tela larga e os rótulos descolarem das plataformas (18/09, print do André
+   em janela ultralarga). O que sobra da janela é a cópia desfocada da mesma
+   cena (.hbBorrao), e as bordas da nítida esmaecem nela — a tela continua
+   cheia, sem tarja. A máscara das bordas é posta pelo hubs.js. */
+.hbGalpao{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:var(--artW,1920px);height:var(--artH,1080px);max-width:none;object-fit:cover;opacity:0;
+  filter:contrast(1.07) saturate(1.06);transition:opacity .5s var(--ease)}
+.hubPainel[data-tipo="infografico"] .hbBorrao,
+.hubPainel[data-tipo="infografico"] .hbGalpao{opacity:1}
+.hubPainel[data-tipo="infografico"] .hubBg .ondas,
+.hubPainel[data-tipo="infografico"] .hubBg .grafismo{opacity:0}
+.hubBg .ondas,.hubBg .grafismo{transition:opacity .5s var(--ease)}
+.hubTela{position:absolute;inset:0}
+.hConteudo{position:absolute;inset:0;animation:hEntra .55s var(--ease) both}
+/* A camada de arte tem exatamente a caixa da CENA (--artW/--artH, medidas no
+   hubs.js): quando a janela é mais larga que 16:9 a cena cresce para cobrir
+   tudo, e os rótulos crescem com ela, continuando sobre o mesmo ponto do
+   desenho. O cartão do título e a navegação ficam de fora, presos ao palco. */
+.hArte{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:var(--artW,1920px);height:var(--artH,1080px)}
+@keyframes hEntra{from{opacity:0;transform:translateX(calc(var(--dir,0) * 70px))}to{opacity:1;transform:none}}
+
+/* paginador das telas internas de uma caixa: no alto e ao centro (embaixo
+   cobria as legendas das capas nas galerias). Setas nas pontas, traços com o
+   da vez comprido, como o learning map. O Voltar leva a outras caixas. */
+.hubNav{position:absolute;left:50%;top:28px;transform:translateX(-50%);z-index:5;width:max-content;
+  display:flex;align-items:center;gap:12px;padding:7px 18px 7px 7px;border-radius:999px;
+  background:rgba(255,255,255,.94);border:1px solid rgba(24,87,126,.14);
+  box-shadow:0 10px 26px -14px rgba(24,87,126,.45);backdrop-filter:blur(10px)}
+.hSeta{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  font-size:24px;line-height:1;color:var(--azul);background:var(--claro);transition:.2s}
+.hSeta:hover{background:var(--azul);color:#fff}
+.hubPontos{display:flex;gap:8px;align-items:center}
+/* só a cor anima: animar a largura do traço recalculava o layout da
+   barra inteira a cada quadro */
+.hubPontos button{width:24px;height:6px;border-radius:3px;background:rgba(24,87,126,.18);
+  transition:background .3s}
+.hubPontos button.on{width:54px;background:var(--azul)}
+.hubPontos button:hover:not(.on){background:rgba(0,130,173,.45)}
+.hubConta{font-size:14px;font-weight:800;letter-spacing:.08em;color:var(--tinta2);white-space:nowrap;font-style:normal}
+/* na margem direita do palco (84px, a mesma do logotipo à esquerda) e
+   com a altura da barra, para as duas lerem como uma linha só */
+.hubVoltar{position:absolute;right:84px;top:30px;z-index:6;display:inline-flex;align-items:center;gap:10px;
+  height:52px;padding:0 24px;border-radius:999px;font-size:14px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;white-space:nowrap;color:var(--profundo);background:rgba(255,255,255,.92);
+  border:1px solid rgba(24,87,126,.14);box-shadow:0 10px 26px -14px rgba(24,87,126,.45);
+  backdrop-filter:blur(10px);transition:.2s}
+.hubVoltar:hover{background:var(--azul);color:#fff;border-color:var(--azul)}
+
+/* ── infográfico: medidas em px do palco, as mesmas das prévias ── */
+.hPeca{position:absolute;transform:translate(-50%,-50%)}
+/* logo aplicado sobre a arte (INMETRO no medalhão da Certificação) */
+/* versão holográfica: ciano claro com linhas de varredura (no próprio PNG),
+   halo em camadas e uma pulsação leve de luz */
+.hSeloPeca{position:absolute;z-index:14;transform:translate(-50%,-50%);height:auto;pointer-events:none;
+  /* 18/09: mais branco (pedido do André) — o ciano puro sumia dentro do
+     disco ciano do medalhão. Satura menos e clareia antes do brilho. */
+  filter:saturate(.3) brightness(2.1) drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 7px rgba(170,245,255,.95)) drop-shadow(0 0 16px rgba(0,200,240,.5));
+  animation:holoPulso 3.4s ease-in-out infinite}
+@keyframes holoPulso{0%,100%{opacity:.88}45%{opacity:1}52%{opacity:.78}58%{opacity:1}}
+.hFios{position:absolute;inset:0;width:100%;height:100%;z-index:15;pointer-events:none}
+.hFios line{stroke:rgba(0,130,173,.55);stroke-width:1.6;stroke-dasharray:7 6;vector-effect:non-scaling-stroke}
+/* o cabeçalho desce até 118px para sair de baixo do logotipo do chrome;
+   o véu radial devolve contraste ao texto sobre o galpão claro */
+.hCab{position:absolute;left:84px;top:118px;z-index:30;isolation:isolate;max-width:620px}
+/* véu maior e mais cheio no meio: sobre a cena de Modalidades a última
+   linha do texto de abertura caía em cima do parapeito do mezanino */
+.hCab::before{content:"";position:absolute;left:-12%;top:-24%;width:152%;height:180%;z-index:-1;pointer-events:none;
+  background:radial-gradient(72% 62% at 34% 48%,rgba(246,250,251,.97) 0%,rgba(246,250,251,.9) 52%,rgba(246,250,251,0) 86%)}
+/* rótulos, notas e cartões ficam ACIMA do véu: com ele maior, a caixa
+   "1. Conteúdo" das Soluções customizadas ficava esbranquiçada por baixo */
+.hConteudo .hRot,.hConteudo .hNota,.hConteudo .hFase{z-index:32}
+/* sobre uma cena inteira o véu não basta: o cabeçalho vira cartão de vidro,
+   com margem própria, e o texto para de encostar nas ilhas */
+/* O cartão fica em 118px. Atenção ao medir: aberto a partir da CAPA o
+   logotipo é o grande (até 214px) e parece cortar o cartão; o hub só abre
+   pelas telas 04 e 05, onde o logotipo é o pequeno do canto e termina acima
+   dele. Descer o cartão (18/09) jogou o da SAGA em cima das pessoas. */
+.hubPainel[data-tipo="infografico"] .hCab{max-width:560px;padding:26px 30px 28px;border-radius:22px;
+  background:rgba(255,255,255,.9);border:1px solid rgba(0,130,173,.16);
+  box-shadow:0 18px 40px -20px rgba(20,40,60,.4);backdrop-filter:blur(10px)}
+.hubPainel[data-tipo="infografico"] .hCab::before{display:none}
+/* mesmo padrão do cartão da tela de cursos técnicos (21/09) */
+.hubPainel[data-tipo="infografico"] .hCab h2{font-size:33px;line-height:1.1}
+/* cartão estreito (`cabW` na caixa): quando a cena tem gente logo abaixo
+   do canto do título, o cartão afina em vez de cobrir alguém */
+.hubPainel[data-tipo="infografico"] .hCab.estreito h2{font-size:34px}
+.hubPainel[data-tipo="infografico"] .hCab p{max-width:none;font-size:15.7px;line-height:1.45}
+.hCab .kicker{margin-bottom:10px}
+.hCab h2{font-size:46px;line-height:1.05}
+/* 560px e não os 620 da caixa: numa linha só, o fim da frase da
+   Certificação passava do véu e sumia sobre a janela clara do galpão */
+.hCab p{margin-top:12px;max-width:560px;font-size:15.5px;line-height:1.5;color:var(--tinta);text-wrap:balance}
+/* --rf: escala dos rótulos, por tela (rotEscala no dados.js). Modalidades
+   pediu o dobro (21/09); as outras seguem em 1. */
+.hRot{position:absolute;transform:translate(-50%,-50%);z-index:20;max-width:calc(240px * var(--rf,1));text-align:center;
+  background:rgba(255,255,255,.95);border:1px solid rgba(0,130,173,.26);border-radius:12px;padding:9px 15px;
+  box-shadow:0 10px 26px rgba(20,40,60,.15);backdrop-filter:blur(6px)}
+.hRot b{display:block;font-size:calc(16px * var(--rf,1) * var(--leg,1));font-weight:800;color:var(--profundo);letter-spacing:.01em;white-space:nowrap}
+.hRot i{display:block;font-style:normal;font-size:calc(12px * var(--rf,1) * var(--leg,1));font-weight:700;color:var(--azul);margin-top:3px}
+.hRot span{display:block;font-size:calc(11.5px * var(--rf,1) * var(--leg,1));line-height:1.35;color:var(--tinta);margin-top:3px;text-wrap:balance}
+/* com rótulo ampliado o nome pode quebrar em duas linhas: nowrap faria
+   os nomes longos saírem do palco */
+.hConteudo[data-rot] .hRot b{white-space:normal}
+/* 21/09, cliente: com o rótulo ampliado, o corpo do cartão do título não
+   pode ficar menor que o corpo dos rótulos — os dois passam a sair do mesmo
+   cálculo, então crescem juntos */
+/* o cartão NÃO entra na compensação de tela pequena: ele é grande o
+   bastante para ler, e crescendo empurrava o rótulo vizinho */
+.hConteudo[data-rot] .hCab p{font-size:calc(11.5px * var(--rf,1));line-height:1.5}
+.hRot.forte{border:2px solid var(--ciano);box-shadow:0 12px 30px rgba(0,130,173,.26)}
+.hRot.forte b{color:var(--azul)}
+/* rótulo compacto (rotCompacto na sub-tela): ícone ao lado, texto à
+   esquerda, metade da altura. Para cenas em que o vão entre as faixas da
+   arte não comporta a caixa alta com ícone em cima (SAGA) */
+.hRot.compacto{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;align-items:center;
+  width:250px;max-width:none!important;text-align:left;padding:8px 14px 8px 8px}
+.hRot.compacto>.hIco{grid-row:span 2;margin:0}
+.hRot.compacto b{font-size:calc(17px * var(--leg,1));white-space:normal}
+.hRot.compacto span{font-size:calc(13.5px * var(--leg,1));margin-top:1px;text-wrap:balance}
+.hRot.marco{background:var(--azul);border-color:var(--azul);max-width:none}
+.hRot.marco b{color:#fff;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+/* nota: caixa de vidro com ícone, como os rótulos — solta sobre a arte ela
+   sumia e parecia legenda de outra coisa */
+.hNota{position:absolute;transform:translate(-50%,-50%);z-index:18;width:300px;
+  display:flex;align-items:center;gap:11px;padding:11px 15px;border-radius:14px;
+  background:rgba(255,255,255,.92);border:1px solid rgba(0,130,173,.2);
+  box-shadow:0 10px 26px rgba(20,40,60,.14);backdrop-filter:blur(6px)}
+.hNota span{font-size:calc(14.5px * var(--leg,1));line-height:1.35;color:var(--tinta);text-wrap:balance}
+.hNota .hIco{flex:none;width:30px;height:30px;padding:6px;border-radius:50%;
+  background:rgba(0,179,236,.14);color:var(--azul)}
+.hFase{position:absolute;transform:translate(-50%,-50%);width:340px;z-index:20;
+  background:rgba(255,255,255,.95);border:1px solid rgba(0,130,173,.26);border-radius:14px;
+  padding:16px 20px 14px;box-shadow:0 12px 30px rgba(20,40,60,.15);backdrop-filter:blur(6px)}
+.hFase i{display:block;font-style:normal;font-size:11.5px;font-weight:800;line-height:1;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--azul)}
+.hFase i+b{margin-top:5px}
+.hFase b{display:block;font-size:21px;font-weight:800;color:var(--profundo);letter-spacing:-.01em}
+.hFase ol{list-style:none;padding:0;margin-top:10px;counter-reset:passo var(--de)}
+.hFase li{counter-increment:passo;position:relative;padding:6px 0 6px 34px;font-size:14px;line-height:1.35;
+  color:#34424A;border-top:1px solid rgba(0,130,173,.12);text-wrap:balance}
+.hFase li small{display:block;margin-top:2px;font-size:12px;line-height:1.35;color:var(--tinta);text-wrap:balance}
+.hFase li::before{content:counter(passo);position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:22px;height:22px;border-radius:50%;background:rgba(0,179,236,.14);color:var(--azul);
+  font-size:12px;font-weight:800;line-height:22px;text-align:center}
+/* ícones do PPT: no rótulo, acima do título; no cartão, antes do título;
+   nos itens, no lugar do marcador */
+.hIco{display:grid;place-items:center;color:var(--azul)}
+.hIco svg{width:100%;height:100%}
+.hRot>.hIco{width:calc(34px * var(--rf,1));height:calc(34px * var(--rf,1));margin:0 auto 6px;padding:6px;border-radius:50%;background:rgba(0,179,236,.12)}
+.hRot.forte>.hIco{background:var(--azul);color:#fff}
+.hFase b .hIco{display:inline-grid;width:24px;height:24px;margin-right:8px;vertical-align:-4px}
+.hFase li.comIco{padding-left:34px}
+.hFase li.comIco::before{display:none}
+.hFase li .hIco{position:absolute;left:0;top:50%;transform:translateY(-50%);width:22px;height:22px}
+.hSeq{display:flex!important;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:4px 6px;margin-top:8px!important}
+.hSeq em{display:flex;flex-direction:column;align-items:center;gap:3px;width:70px;font-style:normal;
+  font-size:11px;line-height:1.25;text-align:center;color:var(--tinta)}
+.hSeq em .hIco{width:26px;height:26px}
+.hSeq>i{font-style:normal;color:var(--azul);margin-top:5px}
+/* ── versão alternativa com placas (clique no logotipo alterna) ── */
+#palco[data-alt] .marca{cursor:pointer;pointer-events:auto}
+/* o infográfico do cliente redesenhado: SVG no palco inteiro, texto de
+   verdade e movimento em CSS (entrada em cascata, fios correndo, anel
+   girando e a sequência da Medição acendendo passo a passo) */
+.svgCena{position:absolute;inset:0;z-index:32}
+/* a cor padrão vai no <svg>, e não em `.svgCena text`: ali ela vencia por
+   especificidade as classes de texto branco das caixas escuras */
+.svgCena>svg{display:block;width:100%;height:100%;fill:var(--tinta)}
+.svgCena svg svg{fill:none}
+.svgCena text{font-family:Manrope,system-ui,sans-serif}
+.svKick,.svT1,.svT2,.svLead,.svCentroT,.svCentroD,.svPassoT,.svCTc,.svCPc{text-anchor:middle}
+.svCTc{font-size:21px;font-weight:800;fill:var(--profundo)}
+.svCPc{font-size:14px;font-weight:700;fill:var(--azul)}
+.svKick{font-size:14px;font-weight:800;letter-spacing:.18em;fill:var(--azul)}
+.svT1{font-size:42px;font-weight:800;letter-spacing:-.01em;fill:var(--profundo)}
+.svT2{font-size:19px;font-weight:700;fill:var(--azul)}
+.svLead{font-size:15px;fill:var(--tinta2)}
+.svCaixa{fill:rgba(255,255,255,.94);stroke:rgba(0,130,173,.22)}
+.svIcoBg{fill:rgba(0,179,236,.14)}
+.svIco{color:var(--azul)}
+.svIcoClaro{color:#fff}
+.svCT{font-size:21px;font-weight:800;fill:var(--profundo)}
+.svCP{font-size:14px;font-weight:700;fill:var(--azul)}
+.svCI{font-size:14px;fill:var(--tinta)}
+.svPonto{fill:var(--ciano)}
+.svEntrada{fill:var(--profundo)}
+.svEntradaIco{fill:rgba(255,255,255,.18)}
+.svEntradaT{font-size:20px;font-weight:800;fill:#fff}
+.svEntradaD{font-size:13.5px;fill:rgba(255,255,255,.88)}
+.svBase{fill:rgba(255,255,255,.9);stroke:var(--azul);stroke-opacity:.55;stroke-dasharray:7 6}
+.svBaseT{font-size:17px;font-weight:800;fill:var(--azul)}
+.svBaseD{font-size:13px;fill:var(--tinta)}
+.svMioloBrilho{fill:none;stroke:rgba(255,255,255,.45);stroke-width:2}
+.svCentroT{font-size:24px;font-weight:800;letter-spacing:.02em;fill:#fff}
+.svCentroD{font-size:13.5px;fill:rgba(255,255,255,.9)}
+.svAnelC{fill:none;stroke:var(--ciano);stroke-width:2;stroke-dasharray:3 14;opacity:.7}
+.svFio{fill:none;stroke:rgba(0,130,173,.5);stroke-width:2;stroke-dasharray:8 8;
+  animation:svFluir 1.8s linear infinite}
+.svFioForte{stroke:var(--azul);stroke-width:2.6}
+.svPassoBg{fill:rgba(0,179,236,.12)}
+.svPassoT{font-size:12.5px;font-weight:700;fill:var(--tinta)}
+.svSeta{stroke:var(--ciano);stroke-width:2.4;stroke-linecap:round}
+.svGT{font-size:19px;font-weight:800;fill:var(--profundo)}
+.svGI{font-size:13.5px;fill:var(--tinta)}
+.svValor{fill:var(--profundo)}
+.svValorT{font-size:19px;font-weight:800;fill:#fff}
+.svValorI{font-size:13.5px;fill:rgba(255,255,255,.9)}
+.svPontoClaro{fill:var(--ciano)}
+@keyframes svFluir{to{stroke-dashoffset:-32}}
+@keyframes svEntra{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes svGira{to{transform:rotate(360deg)}}
+@keyframes svPisca{0%,70%,100%{opacity:.55}20%,45%{opacity:1}}
+.svC{opacity:0;animation:svEntra .55s var(--ease) forwards;animation-delay:calc(var(--i,0)*.1s)}
+.svAnel{transform-origin:960px 602px;animation:svGira 26s linear infinite}
+.svPasso{animation:svPisca 7s ease-in-out infinite;animation-delay:calc(var(--k,0)*1.2s)}
+.hFase.lista li{padding-left:24px}
+.hFase.lista li::before{content:"";width:8px;height:8px;left:6px;background:var(--ciano)}
+
+/* ── texto e slider: coluna de prosa + painel de mídia ── */
+/* título de sub-tela quebra equilibrado: "Recursos Didáticos Digitais" e
+   "Soluções customizadas de capacitação" deixavam a última palavra só */
+.hubPainel h2{text-wrap:balance}
+.hTexto,.hSlider{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,740px) minmax(0,1fr);
+  gap:76px;padding:150px 84px 96px;align-items:center}
+.hSlider{grid-template-columns:minmax(0,600px) minmax(0,1fr)}
+.hCol h2{font-size:54px}
+.hNum{display:flex;align-items:center;gap:16px;margin-top:26px}
+.hNum b{font-size:108px;font-weight:800;line-height:.85;letter-spacing:-.04em;color:var(--azul);
+  font-variant-numeric:tabular-nums}
+.hNum span{max-width:230px;font-size:16px;font-weight:800;line-height:1.3;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--tinta2);text-wrap:balance}
+.hLead{margin-top:24px;font-size:19px;line-height:1.55;color:var(--carvao);text-wrap:pretty}
+.hCorpo{margin-top:16px;font-size:16px;line-height:1.65;color:var(--tinta);text-wrap:pretty}
+.hLink{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:15px 24px;border-radius:999px;
+  background:var(--azul);color:#fff;font-size:15px;font-weight:800;letter-spacing:.04em;text-decoration:none;
+  box-shadow:0 14px 28px -14px rgba(0,130,173,.8);transition:.2s}
+.hLink:hover{background:var(--profundo)}
+.hLink span{font-size:18px}
+.hMidia{position:relative;height:100%;max-height:800px;border-radius:28px;overflow:hidden;background:#0B1418;
+  box-shadow:0 3cqh 7cqh -2cqh rgba(24,87,126,.34)}
+.hMidia video,.hMidia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .7s var(--ease)}
+.hMidia .on{opacity:1}
+/* grafismo da marca sobre a mídia: a onda em branco, saindo do canto de
+   cima à direita e cortada pelo arredondado do painel */
+.hMidia img.hSelo{position:absolute;inset:auto -3% auto auto;top:-4%;left:auto;width:30%;height:auto;
+  z-index:2;opacity:.72;filter:brightness(0) invert(1) drop-shadow(0 2px 10px rgba(11,20,24,.25));
+  transition:none;pointer-events:none}
+/* legenda da mídia da vez: vidro claro no canto de baixo, sem tarja escura */
+.hLegenda{position:absolute;left:18px;bottom:18px;z-index:2;max-width:calc(100% - 36px);padding:9px 16px;
+  border-radius:12px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);
+  box-shadow:0 10px 24px -14px rgba(11,20,24,.5);font-size:15px;font-weight:700;line-height:1.35;
+  color:var(--profundo);text-wrap:balance;transition:opacity .4s var(--ease)}
+.hLegenda:empty{opacity:0}
+.hPalco{display:flex;flex-direction:column;justify-content:center;gap:18px;height:100%}
+.hPalco .hMidia{height:auto;aspect-ratio:16/9;flex:none}
+.hAbas{display:flex;flex-wrap:wrap;gap:10px}
+.hAba{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;font-size:15px;
+  font-weight:700;color:var(--profundo);background:rgba(255,255,255,.92);border:1px solid rgba(24,87,126,.16);
+  transition:.2s}
+.hAba em{font-style:normal;font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--azul);
+  background:var(--claro);border-radius:6px;padding:2px 6px}
+.hAba:hover:not(.on){border-color:rgba(0,179,236,.6)}
+.hAba.on{background:var(--azul);border-color:var(--azul);color:#fff}
+.hAba.on em{background:rgba(255,255,255,.22);color:#fff}
+.hItemTxt{min-height:3.2em;font-size:17px;line-height:1.55;color:var(--carvao);text-wrap:pretty}
+
+/* ── sub-tela escura (escuro: 1), no tema da tela 03 ──
+   vídeo em laço desfocado e escurecido atrás, com véu mais forte do lado
+   do texto: dá movimento sem disputar leitura */
+.hbVideo{position:absolute;inset:-3%;width:106%;height:106%;object-fit:cover;opacity:0;
+  filter:saturate(.55) contrast(1.05) brightness(.5) blur(3px);transition:opacity .6s var(--ease)}
+.hubBg::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);
+  background:linear-gradient(90deg,rgba(11,20,24,.92) 0%,rgba(11,20,24,.74) 42%,rgba(11,20,24,.5) 100%)}
+.hubPainel[data-escuro] .hubBg{background:var(--escuro)}
+.hubPainel[data-escuro] .hbVideo,.hubPainel[data-escuro] .hubBg::after{opacity:1}
+/* rede em movimento (fundoRede), 19/09. Pedido: fundo com motion em laço,
+   moderno, representando uma rede, na linha dos fundos da Apple e da
+   Samsung, sem sair da marca. Duas camadas num canvas (hubs.js):
+   luzes grandes e desfocadas nos azuis da Firjan, respirando devagar, e
+   uma malha de pontos em ondas vista em perspectiva, que é o grafismo de
+   ondas da marca virado rede. Nada além de azul, azul profundo e ciano. */
+.hbRede{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;
+  transition:opacity .9s var(--ease);pointer-events:none}
+.hubPainel[data-rede] .hbRede{opacity:1}
+.hubPainel[data-rede] .hbVideo{opacity:0}
+/* com a rede o véu clareia; só o lado do texto segue bem fechado */
+.hubPainel[data-rede] .hubBg::after{background:linear-gradient(90deg,rgba(11,20,24,.84) 0%,
+  rgba(11,20,24,.55) 34%,rgba(11,20,24,0) 72%)}
+.hubPainel[data-escuro] .hubBg .ondas{opacity:.12}
+.hubPainel[data-escuro] .hubBg .grafismo{filter:brightness(0) invert(1);opacity:.08}
+.hubPainel[data-escuro] .hConteudo .kicker{color:var(--ciano)}
+.hubPainel[data-escuro] .hConteudo h2{color:#fff}
+.hubPainel[data-escuro] .hLead{color:rgba(255,255,255,.86)}
+.hubPainel[data-escuro] .hCorpo{color:rgba(255,255,255,.62)}
+.hubPainel[data-escuro] .hItemTxt{color:rgba(255,255,255,.8)}
+.hubPainel[data-escuro] .hDica{color:var(--ciano)}
+.hubPainel[data-escuro] .hAba{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2);color:#fff}
+.hubPainel[data-escuro] .hAba em{background:rgba(0,179,236,.18);color:var(--ciano)}
+.hubPainel[data-escuro] .hAba:hover:not(.on){border-color:var(--ciano)}
+.hubPainel[data-escuro] .hAba.on{background:var(--azul);border-color:var(--azul)}
+.hubPainel[data-escuro] .hMidia{box-shadow:0 3cqh 7cqh -2cqh rgba(0,0,0,.6)}
+
+/* ── galeria ── */
+.hGaleria{position:absolute;inset:0;display:flex;flex-direction:column;gap:30px;padding:130px 84px 90px}
+.hGaleria h2,.hLinkTela h2{font-size:54px}
+.hCapas{flex:1;min-height:0;display:grid;grid-template-columns:repeat(var(--cols),var(--w));
+  gap:26px 28px;align-content:center;justify-content:center}
+.hCapa{aspect-ratio:1773/2474;border-radius:8px;overflow:hidden;cursor:zoom-in;
+  box-shadow:0 18px 34px -18px rgba(24,87,126,.6);transition:transform .3s var(--ease),box-shadow .3s}
+.hCapa{position:relative}
+.hCapa img{width:100%;height:100%;object-fit:cover}
+/* o nome de cada capa, embaixo dela */
+.hCapaFig{margin:0;display:flex;flex-direction:column;gap:10px}
+.hCapaFig figcaption{font-size:13px;font-weight:700;line-height:1.3;color:var(--profundo);text-align:center;text-wrap:balance}
+/* indicativo de ampliar: a linha sob o título e a lupa no canto da capa */
+.hDica{display:inline-flex;align-items:center;gap:9px;margin-top:14px;font-size:15px;font-weight:700;
+  letter-spacing:.02em;color:var(--azul)}
+.hDica svg{width:22px;height:22px;flex:none}
+/* no slider a chamada fica logo acima das abas, colada a elas pela ordem */
+.hDicaAbas{margin:4px 0 -6px}
+.hLupa{position:absolute;right:10px;top:10px;width:40px;height:40px;border-radius:50%;
+  display:grid;place-items:center;color:var(--azul);background:rgba(255,255,255,.94);
+  box-shadow:0 6px 16px -6px rgba(11,20,24,.55);transition:transform .25s var(--ease),background .25s,color .25s}
+.hLupa svg{width:21px;height:21px}
+.hCapa:hover .hLupa{transform:scale(1.12);background:var(--azul);color:#fff}
+.hCapa:hover{transform:translateY(-6px);box-shadow:0 26px 40px -18px rgba(24,87,126,.7)}
+.hZoom{position:absolute;inset:0;z-index:40;display:grid;place-items:center;align-content:center;gap:18px;
+  background:rgba(11,20,24,.74);backdrop-filter:blur(6px);cursor:zoom-out}
+.hZoom[hidden]{display:none}
+.hZoom img{height:820px;width:auto;border-radius:10px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.hZoom b{font-size:18px;font-weight:700;color:#fff}
+
+/* ── link (EaD): dois blocos e o endereço ── */
+.hLinkTela{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:38px;
+  padding:150px 84px 110px}
+.hBlocos{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.hBloco{padding:38px 42px;border-radius:24px;background:rgba(255,255,255,.9);
+  border:1px solid rgba(24,87,126,.14);box-shadow:0 18px 40px -24px rgba(24,87,126,.5)}
+.hBloco svg{width:56px;height:56px;color:var(--azul)}
+.hBloco h3{margin-top:18px;font-size:21px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--azul)}
+.hBloco p{margin-top:12px;font-size:18px;line-height:1.6;color:var(--carvao);text-wrap:pretty}
+.hLinkTela .hLink{align-self:flex-start;margin-top:0}
+/* com ilustração: coluna de texto à esquerda, arte à direita */
+.hLinkTela.comArte{padding:140px 1040px 90px 84px;gap:26px}
+.hLinkTela.comArte>*{position:relative;z-index:1}
+.hLinkTela.comArte h2{font-size:48px;text-wrap:balance}
+.hLinkTela.comArte .hBlocos{grid-template-columns:1fr;gap:18px}
+.hLinkTela.comArte .hBloco{display:grid;grid-template-columns:auto 1fr;column-gap:22px;padding:26px 30px}
+.hLinkTela.comArte .hBloco svg{grid-row:span 2;width:48px;height:48px}
+.hLinkTela.comArte .hBloco h3{margin-top:2px;font-size:18px}
+.hLinkTela.comArte .hBloco p{margin-top:8px;font-size:16px;line-height:1.55}
+/* a arte tem fundo cinza-claro próprio: as quatro bordas esmaecem, senão
+   ela aparece como um retângulo colado sobre o papel */
+.hLinkArte{position:absolute!important;z-index:0!important;right:-90px;top:53%;transform:translateY(-50%);
+  width:1180px;height:auto;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 24%,#000 92%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 16%,#000 84%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent 0,#000 24%,#000 92%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 16%,#000 84%,transparent 100%);
+  mask-composite:intersect}
+
 </style>
 <link rel="stylesheet" href="celular.css"></head>
 <body>
@@ -993,24 +1494,23 @@ h2{font-size:3.3cqw;line-height:1.06;font-weight:800;letter-spacing:-.03em;color
     </div>
     <div class="wrap px" data-vel="8">
       <div class="kicker" data-a="1"><i></i>Cursos Técnicos</div>
-      <!-- PROPAG é o nome do programa: entra como título, e a frase que era
-           título vira o subtítulo logo abaixo -->
+      <!-- A frase volta a ser o título, como era antes do PROPAG, e o
+           PROPAG sai: o escopo agora é o portfólio inteiro, não uma rodada.
+           Instrução literal do cliente no slide 1 da revisão de setembro.
+           O "2026.2" fica — ele pediu para manter. -->
       <!-- data-ppt="pilula": o exportador desenha este trecho como uma
            forma arredondada com texto dentro, em vez de enfiá-lo na mesma
-           caixa de texto do PROPAG. Sem isso o "2026.2" saía no PPT como
-           texto miúdo colado no G, sem o fundo e sem o recuo do topo — o
-           layout da capa não batia com o do HTML. -->
-      <h1 class="capaPropag" data-a="2">PROPAG<em data-ppt="pilula">2026.2</em></h1>
-      <p class="capaSub" data-a="2">A indústria pede. <span class="ac">A gente forma.</span></p>
+           caixa de texto do título. Sem isso o "2026.2" saía no PPT como
+           texto miúdo colado na última letra, sem fundo e sem recuo. -->
+      <h1 class="capaPropag" data-a="2">A indústria pede.<br><span class="ac">A gente forma.</span><em data-ppt="pilula">2026.2</em></h1>
       <p class="lead" data-a="3">Há mais de <b class="realce">84 anos</b> o Firjan SENAI forma os melhores profissionais para a indústria — na opinião da própria indústria.</p>
-      <!-- "Oferta" separa o que a Firjan É do que ela está OFERECENDO nesta
-           rodada. Sem essa palavra, os números da capa se confundiam com os
-           institucionais da tela 04: por isso aqui são 19 áreas, as que têm
-           título nesta oferta, e não as 32 do catálogo inteiro. -->
-      <div class="capaOferta" data-a="4">Oferta</div>
+      <!-- Os quatro números são os do slide 1 da revisão de setembro, na
+           ordem em que ele os escreveu. A palavra "Oferta" saiu junto com o
+           PROPAG: sem o recorte de uma rodada, não há o que separar. -->
       <div class="metricas" data-a="4">
-        <div class="m"><span data-num="27">0</span><small>Títulos técnicos</small></div>
-        <div class="m"><span data-num="19">0</span><small>Áreas tecnológicas</small></div>
+        <div class="m"><span data-num="31">0</span><small>Títulos técnicos</small></div>
+        <div class="m"><span data-num="130" data-pre="+" data-suf=" mil">0</span><small>Matrículas por ano</small></div>
+        <div class="m"><span data-num="71,7" data-suf="%">0</span><small>Empregabilidade de egressos</small></div>
         <div class="m"><span data-num="97,7" data-suf="%">0</span><small>Satisfação das empresas</small></div>
       </div>
     </div>
@@ -1097,44 +1597,97 @@ h2{font-size:3.3cqw;line-height:1.06;font-weight:800;letter-spacing:-.03em;color
       <div class="grafismo g-meio"><img class="px" data-vel="-16" src="assets/brand/grafismo-meiotom.svg" alt=""></div>
     </div>
     <div class="wrap px" data-vel="5">
-      <!-- Rediagramada: o cliente não aprovou a versão em que os números
-           ficavam espremidos numa coluna estreita de 21cqw, com 33px de
-           altura e rótulos de uma palavra só.
-
-           A referência é o quadro do próprio PPT dele (slide 6): pílula com
-           o NÚMERO no dobro do tamanho do rótulo, lado a lado, e o rótulo
-           dizendo a categoria inteira — "Cursos Técnicos", não "Técnicos".
-
-           A tela deixou de ser duas colunas. Agora é uma pilha: título, o
-           total, a faixa de pílulas com a quebra por tipo, e a grade das 32
-           áreas embaixo. Cada número ganhou largura porque não divide mais
-           espaço com a grade. -->
+      <!-- Três faixas (ver o CSS de #s4): o topo com o total, a barra dos
+           seis tipos, e embaixo as portas do hub ao lado do índice das 32
+           áreas. O padrão número + rótulo lado a lado vem do quadro do
+           próprio PPT do cliente e dá a categoria inteira — "Cursos
+           Técnicos", não "Técnicos". -->
       <div class="fazTopo">
         <div>
           <div class="kicker" data-a="1"><i></i>04 · O que fazemos</div>
           <h2 data-a="2">O catálogo <span class="ac">completo.</span></h2>
+          <p class="lead" data-a="2">Da iniciação à especialização, a formação
+            acompanha a carreira inteira de quem trabalha na indústria.</p>
         </div>
-        <p class="lead" data-a="2">Da iniciação à especialização, a formação
-          acompanha a carreira inteira de quem trabalha na indústria.</p>
         <div class="fazTotal" data-a="2">
-          <span data-num="564">0</span><em>cursos<br>no catálogo</em>
+          <span data-num="566">0</span><em>cursos<br>no catálogo</em>
         </div>
       </div>
 
-      <!-- Os seis tipos somam os 564 acima. O rótulo repete "Cursos" de
+      <!-- Os seis tipos somam o total acima. O rótulo repete "Cursos" de
            propósito: é assim que o cliente escreve, e é o que deixa claro
-           que 331 são cursos e não pessoas, turmas ou horas. -->
+           que 331 são cursos e não pessoas, turmas ou horas.
+
+           Técnicos passou de 29 para 31 por anotação do cliente no slide 4
+           da revisão de setembro ("31 cursos técnicos"), e o total subiu
+           junto para 566 — os seis têm de somar o número grande. O 566
+           não foi escrito por ele: confirmar. -->
       <div class="fazNums" data-a="3">
         <div class="c"><span data-num="331">0</span><small>Cursos de<br>Aperfeiçoamento</small></div>
         <div class="c"><span data-num="137">0</span><small>Cursos de<br>Qualificação</small></div>
         <div class="c"><span data-num="56">0</span><small>Cursos de<br>Aprendizagem</small></div>
-        <div class="c"><span data-num="29">0</span><small>Cursos<br>Técnicos</small></div>
+        <div class="c"><span data-num="31">0</span><small>Cursos<br>Técnicos</small></div>
         <div class="c"><span data-num="09">0</span><small>Cursos de<br>Iniciação</small></div>
         <div class="c"><span data-num="02">0</span><small>Cursos de<br>Especialização</small></div>
       </div>
 
-      <div class="fazAreas" data-a="4"><b>32</b> áreas tecnológicas</div>
-      <div class="fazGrade" data-a="4" id="fazGrade"></div>
+      <!-- Anotações do cliente no slide 4: "O que fazemos vai abrir um
+           rollover, ou submenu a partir dele" e "Esse 32 áreas tecnológicas
+           ficou meio solto aqui. Acho que é melhor colocar no mesmo padrão
+           das caixas de cima". À esquerda, as portas do hub (hubs.js as
+           monta); à direita, as áreas num painel só, encabeçado pelo 32 no
+           padrão número + rótulo. -->
+      <!-- Revisão do cliente: volta ao desenho do slide 4 (as 32 áreas em
+           cartões com ícone) e os caminhos do hub viram ABAS em sequência,
+           como as abas do navegador que ele mandou de exemplo. A primeira
+           aba é a própria grade; as outras (hubs.js as monta) abrem o hub. -->
+      <div class="fazQuadro" data-a="4">
+        <div class="fazAbas" id="fazMenu" role="tablist" aria-label="O que fazemos">
+          <button type="button" class="fazAba on" role="tab" aria-selected="true">
+            <b class="fazAbaNum">32</b><span>Áreas tecnológicas</span>
+          </button>
+        </div>
+        <section class="fazAreas" role="tabpanel" aria-label="Áreas tecnológicas">
+          <div class="fazGrade" id="fazGrade"></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 05 · SOLUÇÕES ════════
+       O segundo hub, na ordem dos slides 13 a 17 do PPT do cliente. A tela
+       mostra a abertura do slide 13 e os cinco cartões; cada cartão abre o
+       painel de sub-telas (hubs.js). O texto vem de SECOES, no dados.js. -->
+  <section class="slide" id="sSol">
+    <!-- Recomposição (17/09): uma ilustração de tela inteira atrás
+         (insumos/prompts/cena-solucoes.md), com o título, o texto e as abas
+         por cima, na faixa esquerda que a arte deixa livre. Cada aba abre
+         uma solução. -->
+    <div class="bg">
+      <img class="solFundo" src="assets/hub/solucoes-cena.jpg" alt="" aria-hidden="true">
+      <img class="solArte" id="solIlustra" src="assets/hub/solucoes-cena.jpg"
+           alt="Ilustração das soluções customizadas de capacitação">
+      <div class="solVeu"></div>
+      <!-- modo mapa (18/09, insumos/prompts/mapa-solucoes.md): a cena com
+           uma ilha por solução, como o learning map. Só liga quando a
+           imagem carrega; sem ela a tela continua com a ilustração e abas.
+           A <img> da cena nasce no hubs.js, já com o src: uma tag vazia aqui
+           seria uma imagem quebrada esperando arquivo. -->
+      <div class="solMapaVeu"></div>
+    </div>
+    <div class="solMapaUI" aria-hidden="false">
+      <svg class="fios" id="solFios" viewBox="0 0 1920 1080" aria-hidden="true"></svg>
+      <nav class="solIlhas" id="solIlhas" aria-label="Soluções no mapa"></nav>
+    </div>
+    <div class="wrap px" data-vel="5">
+      <div class="solCard" data-a="1">
+        <div class="kicker"><i></i>05 · Soluções</div>
+        <h2>Soluções <span class="ac">customizadas.</span></h2>
+        <p class="lead" id="solLead"></p>
+        <p class="lead solCorpo" id="solCorpo"></p>
+      </div>
+      <p class="hDica solDica" data-a="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M12 10.5V9a1.5 1.5 0 0 1 3 0v2"/><path d="M15 11a1.5 1.5 0 0 1 3 0v3.5A6.5 6.5 0 0 1 11.5 21h-.6a5.5 5.5 0 0 1-4.2-2l-2.9-3.6a1.5 1.5 0 0 1 2.3-1.9L9 16V11"/><path d="M5 5.5 3.5 4M16 5.5 17.5 4M10.5 2V1"/></svg>Clique para conhecer as soluções</p>
+      <div class="solAbas" id="solMenu" role="tablist" aria-label="Soluções" data-a="3"></div>
     </div>
   </section>
 
@@ -1263,12 +1816,39 @@ h2{font-size:3.3cqw;line-height:1.06;font-weight:800;letter-spacing:-.03em;color
     </div>
   </section>
 
+  <!-- ════════ painel dos hubs ════════
+       Um só, para os dois hubs: hubs.js enche o miolo com a sub-tela da
+       vez. Fica acima das telas e abaixo do chrome. O galpão (.hbGalpao)
+       é preso ao palco, como as cenas do mapa, porque os rótulos dos
+       infográficos foram medidos sobre ele; o que cobre a janela é a cópia
+       desfocada (.hbBorrao) ou o fundo claro das outras sub-telas. -->
+  <section class="hubPainel" id="hubPainel" role="dialog" aria-label="Conteúdo" aria-hidden="true">
+    <div class="hubBg">
+      <div class="hbBorrao"></div>
+      <!-- vídeo de fundo das sub-telas escuras (fundoVideo no dados.js) -->
+      <video class="hbVideo" muted loop playsinline preload="none" aria-hidden="true"></video>
+      <!-- rede abstrata das sub-telas escuras (fundoRede no dados.js); os nós
+           e as ligações nascem no hubs.js -->
+      <canvas class="hbRede" aria-hidden="true"></canvas>
+      <div class="ondas">
+        <div class="o o1"><svg viewBox="0 0 1600 200" preserveAspectRatio="none" width="100%" height="15cqh"><path d="M0,120 C200,20 320,190 520,110 C720,30 840,190 1040,110 C1240,30 1400,180 1600,100"/></svg></div>
+        <div class="o o3"><svg viewBox="0 0 1600 200" preserveAspectRatio="none" width="100%" height="21cqh"><path d="M0,100 C180,10 360,180 540,90 C720,0 900,170 1080,90 C1260,10 1420,160 1600,80"/></svg></div>
+      </div>
+      <div class="grafismo g-meio"><img src="assets/brand/grafismo-meiotom.svg" alt=""></div>
+    </div>
+    <img class="hbGalpao" src="assets/hub/galpao.jpg" alt="" aria-hidden="true">
+    <div class="hubTela" id="hubTela"></div>
+    <!-- abas das caixas do tema: hubs.js monta a cada troca -->
+    <nav class="hubNav" id="hubNav" role="tablist" aria-label="Caixas deste tema"></nav>
+    <button type="button" class="hubVoltar" id="hubVoltar">← Voltar</button>
+  </section>
+
   <!-- ════════ chrome ════════ -->
   <div class="chrome">
     <div class="progressoTrilho"><div class="progresso" id="progresso" style="width:16.6%"></div></div>
     <div class="topo">
       <img class="marca" id="marca" src="assets/brand/logo-negativo.svg" alt="Firjan SENAI">
-      <div class="tag">PROPAG 2026.2</div>
+      <div class="tag">2026.2</div>
     </div>
     <div class="rodape">
       <nav class="sumario" id="sumario" aria-label="Sumário da apresentação"></nav>
@@ -1286,5 +1866,6 @@ h2{font-size:3.3cqw;line-height:1.06;font-weight:800;letter-spacing:-.03em;color
 <script src="dados.js"></script>
 <script src="ilustracoes.js"></script>
 <script src="app.js"></script>
+<script src="hubs.js"></script>
 <script src="celular.js"></script>
 </body></html>

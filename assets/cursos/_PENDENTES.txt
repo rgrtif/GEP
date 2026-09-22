@@ -1,0 +1,6 @@
+FOTOS PROVISORIAS - substituir pela foto real do curso
+
+Cada linha e um slug cujo arquivo .jpg nesta pasta e um placeholder
+gerado, nao a foto do curso. O conferir-lacunas le este arquivo para
+continuar cobrando; apague a linha quando a foto real entrar.
+
